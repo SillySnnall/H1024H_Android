@@ -1,4 +1,4 @@
-package silly.h1024h.view.image
+package silly.h1024h.view
 
 import android.content.Context
 import android.support.v4.view.ViewPager

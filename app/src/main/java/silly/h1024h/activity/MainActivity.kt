@@ -1,64 +1,64 @@
 package silly.h1024h.activity
 
-import android.content.Intent
-import android.view.View
 import silly.h1024h.R
-import silly.h1024h.base.activity.BaseMvpActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import silly.h1024h.adapter.RecyclerAdapter
-import silly.h1024h.base.adapter.BaseRecyclerViewAdapter
-import silly.h1024h.common.IntentName.IR_TYPE
-import silly.h1024h.contract.MainContract
-import silly.h1024h.entity.ImgRes
-import silly.h1024h.persenter.MainPersenter
-import silly.h1024h.view.RefreshLoadView.LAYOUTMANAGER_VERTICAL
+import kotlinx.android.synthetic.main.layout_bottom.*
+import silly.h1024h.base.activity.BaseActivity
+import silly.h1024h.fragment.HomeFragment
+import silly.h1024h.fragment.MeFragment
+import silly.h1024h.fragment.RecommendFragment
 
 
-class MainActivity : BaseMvpActivity<MainContract.Presenter>(), MainContract.View {
+class MainActivity : BaseActivity() {
 
     override fun setLayoutView(): Int {
         return R.layout.activity_main
     }
 
-    override fun setPersenter(): MainContract.Presenter {
-        return MainPersenter(this)
-    }
-
-
     override fun initView() {
-
+        selectBottom(0)
+        selectFragment(0)
     }
 
     override fun initData() {
-        refreshloadview.init(recylerview, RecyclerAdapter(mPersenter?.getList()!!), 2, LAYOUTMANAGER_VERTICAL, true)
-        mPersenter?.getCoverImg(0)
+
     }
 
     override fun initEvent() {
-        refreshloadview.setOnRefreshListener {
-            mPersenter?.getCoverImg(0)
+        bottom0.setOnClickListener {
+            if (bottom0.isSelected) return@setOnClickListener
+            selectBottom(0)
+            selectFragment(0)
         }
-
-        refreshloadview.addOnLoadListener {
-            mPersenter?.getCoverImg(1)
-
+        bottom1.setOnClickListener {
+            if (bottom1.isSelected) return@setOnClickListener
+            selectBottom(1)
+            selectFragment(1)
         }
-        refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ImgRes>{
-            override fun onItemClick(view: View?, data: ImgRes?, position: Int) {
-                startActivity(Intent(this@MainActivity,DetailsActivity::class.java).putExtra(IR_TYPE,data?.irType))
-            }
-        })
+        bottom2.setOnClickListener {
+            if (bottom2.isSelected) return@setOnClickListener
+            selectBottom(2)
+            selectFragment(2)
+        }
     }
 
-
-
-    override fun refresh(isLoad:Int) {
-        if(isLoad == 0) refreshloadview.refreshComplete()
-        else refreshloadview.loadComplete()
+    private fun selectBottom(bottomIndex: Int) {
+        bottom0.isSelected = false
+        bottom1.isSelected = false
+        bottom2.isSelected = false
+        when (bottomIndex) {
+            0 -> bottom0.isSelected = true
+            1 -> bottom1.isSelected = true
+            2 -> bottom2.isSelected = true
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        refreshloadview.removeOnLoadListener()
+    private fun selectFragment(fragmentIndex:Int){
+        val beginTransaction = supportFragmentManager.beginTransaction()
+        when (fragmentIndex) {
+            0 -> beginTransaction.replace(R.id.frameLayout, RecommendFragment())
+            1 -> beginTransaction.replace(R.id.frameLayout, HomeFragment())
+            2 -> beginTransaction.replace(R.id.frameLayout, MeFragment())
+        }
+        beginTransaction.commit()
     }
 }

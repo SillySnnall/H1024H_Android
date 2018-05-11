@@ -17,4 +17,11 @@ object Parameter {
         paramsMap["itemCount"] = itemCount.toString()
         return paramsMap
     }
+
+    fun hotCount(irType: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "hotCount"
+        paramsMap["irType"] = irType
+        return paramsMap
+    }
 }

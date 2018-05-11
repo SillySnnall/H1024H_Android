@@ -2,7 +2,6 @@ package silly.h1024h.activity
 
 import android.content.Intent
 import android.view.View
-import com.google.gson.Gson
 import silly.h1024h.R
 import silly.h1024h.adapter.RecyclerAdapter
 import silly.h1024h.base.activity.BaseMvpActivity
@@ -12,10 +11,14 @@ import silly.h1024h.common.IntentName.IR_TYPE
 import silly.h1024h.contract.DetailsContract
 import silly.h1024h.entity.ImgRes
 import silly.h1024h.persenter.DetailsPersenter
-import silly.h1024h.utils.LogUtil
-import silly.h1024h.view.RefreshLoadView
-import silly.h1024h.view.image.ImageActivity
 import kotlinx.android.synthetic.main.activity_details.*
+import silly.h1024h.common.Common
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import silly.h1024h.eventbus.EventBusConstant.GET_COVERIMG_DETAILED
+import silly.h1024h.eventbus.EventBusMessage
+import java.util.concurrent.Executors
+
 
 class DetailsActivity : BaseMvpActivity<DetailsContract.Presenter>(), DetailsContract.View {
 
@@ -35,11 +38,12 @@ class DetailsActivity : BaseMvpActivity<DetailsContract.Presenter>(), DetailsCon
     }
 
     override fun initView() {
+        EventBus.getDefault().register(this)
         irType = intent.getStringExtra(IR_TYPE).toInt()
     }
 
     override fun initData() {
-        refreshloadview.init(recylerview, RecyclerAdapter(mPersenter?.getList()!!), 2, RefreshLoadView.LAYOUTMANAGER_VERTICAL, true)
+        refreshloadview.init(recylerview, RecyclerAdapter(Common.imgResList), 2)
         mPersenter?.getCoverImgDetailed(0, irType)
     }
 
@@ -54,10 +58,7 @@ class DetailsActivity : BaseMvpActivity<DetailsContract.Presenter>(), DetailsCon
         }
         refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ImgRes> {
             override fun onItemClick(view: View?, data: ImgRes?, position: Int) {
-                val toJson = Gson().toJson(mPersenter?.getList()!!)
-                LogUtil.e(toJson)
                 startActivity(Intent(this@DetailsActivity, ImageActivity::class.java)
-                        .putExtra(IntentName.IMG_LIST, Gson().toJson(mPersenter?.getUrlList()!!))
                         .putExtra(IntentName.IMG_LIST_POSITION, position))
             }
         })
@@ -66,6 +67,13 @@ class DetailsActivity : BaseMvpActivity<DetailsContract.Presenter>(), DetailsCon
     override fun onDestroy() {
         super.onDestroy()
         refreshloadview.removeOnLoadListener()
+        EventBus.getDefault().unregister(this)
     }
 
+    @Subscribe// 需要加这个注解，否则会报错
+    fun onEventMainThread(event: EventBusMessage) {
+        if (GET_COVERIMG_DETAILED == event.type) {
+            mPersenter?.getCoverImgDetailed(1, irType)
+        }
+    }
 }

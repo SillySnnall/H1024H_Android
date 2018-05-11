@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/color_black"
+    android:orientation="horizontal"
+    tools:ignore="DisableBaselineAlignment">
+
+    <LinearLayout
+        android:id="@+id/bottom0"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/bottom_image_selector1"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="推荐"
+            android:textColor="@drawable/bottom_text_selector"
+            android:textSize="12dp"
+            tools:ignore="HardcodedText,SpUsage" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/bottom_image_selector2"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="首页"
+            android:textColor="@drawable/bottom_text_selector"
+            android:textSize="12dp"
+            tools:ignore="HardcodedText,SpUsage" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/bottom_image_selector3"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="我的"
+            android:textColor="@drawable/bottom_text_selector"
+            android:textSize="12dp"
+            tools:ignore="HardcodedText,SpUsage" />
+
+    </LinearLayout>
+
+</LinearLayout>

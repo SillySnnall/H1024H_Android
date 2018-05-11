@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<silly.h1024h.view.RefreshLoadView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/refreshloadview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="silly.h1024h.activity.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recylerview"
-        android:background="@color/black"
+    <silly.h1024h.view.RefreshLoadView
+
+        android:id="@+id/refreshloadview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="5dp" />
-</silly.h1024h.view.RefreshLoadView>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recylerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_262626"
+            android:padding="5dp" />
+    </silly.h1024h.view.RefreshLoadView>
+
+</LinearLayout>
+
+

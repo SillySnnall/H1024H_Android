@@ -1,15 +1,14 @@
 package silly.h1024h.persenter
 
-import kotlinx.android.synthetic.main.activity_main.*
-import silly.h1024h.R.id.refreshloadview
-import silly.h1024h.contract.MainContract
+import silly.h1024h.contract.HomeContract
 import silly.h1024h.entity.ImgRes
 import silly.h1024h.entity.ImgResData
 import silly.h1024h.http.HttpManager
 import silly.h1024h.parameters.Parameter
 import silly.h1024h.utils.ToastUtil
 
-class MainPersenter(private val mView: MainContract.View) : MainContract.Presenter {
+class HomePersenter(private val mView: HomeContract.View) : HomeContract.Presenter {
+
 
     private val imgList = arrayListOf<ImgRes>()
     private var pageNum = 0
@@ -34,4 +33,7 @@ class MainPersenter(private val mView: MainContract.View) : MainContract.Present
                 })
     }
 
+    override fun hotCount(irType: String) {
+        HttpManager.post(Parameter.hotCount(irType), ImgResData::class.java, success = {}, fail = {})
+    }
 }
