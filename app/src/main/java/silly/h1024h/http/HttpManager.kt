@@ -31,4 +31,22 @@ object HttpManager {
             }
         })
     }
+
+    fun get(url: String, success: (String?) -> Unit, fail: (String?) -> Unit) {
+        OkhttpUtil.okHttpGet(url, object : CallBackUtil.CallBackString() {
+            override fun onFailure(call: Call, e: Exception) {
+                e.printStackTrace()
+                fail(e.toString())
+            }
+
+            override fun onResponse(response: String) {
+                try {
+                    success(response)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    LogUtil.e(e.toString())
+                }
+            }
+        })
+    }
 }

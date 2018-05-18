@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_262626"
     android:orientation="vertical"
     tools:context="silly.h1024h.activity.MainActivity">
+
+    <include layout="@layout/layout_top"/>
 
     <FrameLayout
         android:id="@+id/frameLayout"
