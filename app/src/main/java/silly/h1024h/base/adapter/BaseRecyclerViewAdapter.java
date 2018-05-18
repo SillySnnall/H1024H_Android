@@ -32,7 +32,7 @@ public abstract class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<Re
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mOnItemClickListener.onItemClick(holder.itemView, mData.get(holder.getLayoutPosition()), holder.getLayoutPosition());
+                    mOnItemClickListener.onItemClick(holder.itemView,mData.get(holder.getLayoutPosition()), holder.getLayoutPosition());
                 }
             });
         }
