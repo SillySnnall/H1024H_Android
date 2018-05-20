@@ -1,28 +1,26 @@
 package silly.h1024h.persenter
 
-import android.util.Log
-import silly.h1024h.contract.RecommendContract
+import silly.h1024h.common.Common.COVER_URL
+import silly.h1024h.common.Common.TB_COVER_URL
 import silly.h1024h.contract.StartContract
-import silly.h1024h.db.dao.MoreDao
-import silly.h1024h.entity.ImgResData
-import silly.h1024h.entity.More
+import silly.h1024h.db.dao.ResDataDao
+import silly.h1024h.entity.ResData
 import silly.h1024h.http.HttpConfig.URL_SERVICE_CODING
 import silly.h1024h.http.HttpManager
-import silly.h1024h.parameters.Parameter
-import silly.h1024h.utils.Init
 import silly.h1024h.utils.ToastUtil
 
 class StartPersenter(private val mView: StartContract.View) : StartContract.Presenter {
-    private val moreDao = MoreDao(Init.ctx)
+    private val resDataDao = ResDataDao(TB_COVER_URL)
     override fun getMoreList() {
-        HttpManager.get("$URL_SERVICE_CODING/cover_url.txt",
+        HttpManager.get("$URL_SERVICE_CODING/$COVER_URL",
                 success = {
                     val split = it?.split("\n")
-                    if (moreDao.queryForAll().size != split?.size) {
+                    if (resDataDao.queryForAll().size != split?.size) {
                         for (str in split!!) {
+                            if (str.isEmpty()) continue
                             val split1 = str.split("=")
-                            val more = More(split1[0], split1[1])
-                            moreDao.createOrUpdate(more)
+                            val more = ResData(split1[0], split1[1])
+                            resDataDao.createByFile(more)
                         }
                     }
                     mView.initSuccess()

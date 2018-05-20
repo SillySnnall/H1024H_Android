@@ -6,11 +6,14 @@ import android.view.View
 import silly.h1024h.R
 import kotlinx.android.synthetic.main.layout_bottom.*
 import kotlinx.android.synthetic.main.layout_top.*
+import org.greenrobot.eventbus.EventBus
 import silly.h1024h.adapter.MoreAdapter
 import silly.h1024h.base.activity.BaseActivity
 import silly.h1024h.base.adapter.BaseRecyclerViewAdapter
-import silly.h1024h.db.dao.MoreDao
-import silly.h1024h.entity.More
+import silly.h1024h.db.dao.ResDataDao
+import silly.h1024h.entity.ResData
+import silly.h1024h.eventbus.EventBusConstant
+import silly.h1024h.eventbus.EventBusMessage
 import silly.h1024h.fragment.HomeFragment
 import silly.h1024h.fragment.MeFragment
 import silly.h1024h.fragment.RecommendFragment
@@ -21,10 +24,10 @@ class MainActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        moreDialog.dismissCancel()
+
     }
 
-    private lateinit var moreDialog: SillyDialog
+
 
     override fun setLayoutView(): Int {
         return R.layout.activity_main
@@ -37,7 +40,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initData() {
-        initMoreListView()
+
     }
 
     override fun initEvent() {
@@ -60,7 +63,7 @@ class MainActivity : BaseActivity() {
             setTop(2)
         }
         top_more.setOnClickListener {
-            moreDialog.show()
+            EventBus.getDefault().post(EventBusMessage(EventBusConstant.MORE_DIALOG_SHOW))
         }
     }
 
@@ -102,22 +105,4 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    private fun initMoreListView() {
-        val moreDao = MoreDao(this)
-        moreDialog = SillyDialog(this).loadLayout(R.layout.dialog_more).setGCCanceledOnTouchOutside(true)
-        val dialog_recyclerview = moreDialog.getView<RecyclerView>(R.id.dialog_recyclerview)
-        dialog_recyclerview.layoutManager = LinearLayoutManager(this)
-        val moreAdapter = MoreAdapter(moreDao.queryForAll())
-        dialog_recyclerview.adapter = moreAdapter
-        moreDialog.setCanceledListener {
-            moreDialog.dismiss()
-        }
-
-        moreAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<More>{
-            override fun onItemClick(view: View?, data: More?, position: Int) {
-                moreDialog.dismiss()
-
-            }
-        })
-    }
 }

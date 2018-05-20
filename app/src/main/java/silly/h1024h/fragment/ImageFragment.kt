@@ -31,6 +31,6 @@ class ImageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Glide.with(context).load(HttpConfig.URL_SERVICE + Common.imgResList[mPosition].irUrl).into(image)
+        Glide.with(context).load(HttpConfig.URL_SERVICE + Common.imgResList[mPosition].img_url).into(image)
     }
 }

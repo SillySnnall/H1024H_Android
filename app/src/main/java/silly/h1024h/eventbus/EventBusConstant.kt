@@ -9,4 +9,5 @@ package silly.h1024h.eventbus
 object EventBusConstant {
     const val GET_COVERIMG_DETAILED = 100
     const val REFRESH_VIEWPAGER = 101
+    const val MORE_DIALOG_SHOW = 102
 }

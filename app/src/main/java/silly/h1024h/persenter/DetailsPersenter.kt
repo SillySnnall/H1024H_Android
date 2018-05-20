@@ -19,22 +19,22 @@ class DetailsPersenter(private val mView: DetailsContract.View) : DetailsContrac
 
     override fun getCoverImgDetailed(isLoad: Int, irType: Int) {
         if (isLoad == 0) pageNum = 0 else pageNum += itemCount
-        HttpManager.post(Parameter.getCoverImgDetailed(irType, pageNum, itemCount), ImgResData::class.java,
-                success = {
-                    if (it?.msg == 0) {
-                        if (isLoad == 0) {
-                            Common.imgResList.clear()
-                        }
-                        for (imgRes in it.data!!) {
-                            Common.imgResList.add(imgRes)
-                        }
-                        EventBus.getDefault().post(EventBusMessage(EventBusConstant.REFRESH_VIEWPAGER))
-                        mView.refresh(isLoad)
-                    } else ToastUtil.toast(it?.param!!)
-                },
-                fail = {
-                    ToastUtil.toast(it!!)
-                })
+//        HttpManager.post(Parameter.getCoverImgDetailed(irType, pageNum, itemCount), ImgResData::class.java,
+//                success = {
+//                    if (it?.msg == 0) {
+//                        if (isLoad == 0) {
+//                            Common.imgResList.clear()
+//                        }
+//                        for (imgRes in it.data!!) {
+//                            Common.imgResList.add(imgRes)
+//                        }
+//                        EventBus.getDefault().post(EventBusMessage(EventBusConstant.REFRESH_VIEWPAGER))
+//                        mView.refresh(isLoad)
+//                    } else ToastUtil.toast(it?.param!!)
+//                },
+//                fail = {
+//                    ToastUtil.toast(it!!)
+//                })
     }
 
 }
