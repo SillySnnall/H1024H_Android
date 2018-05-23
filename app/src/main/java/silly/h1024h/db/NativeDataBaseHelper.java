@@ -24,7 +24,7 @@ public class NativeDataBaseHelper extends SQLiteOpenHelper {
      * 如果数据库比较新，就使用 onDowngrade(SQLiteDatabase, int, int)  方法来 回退数据库
      * 【注意】 : 我们声明完这个构造方法之后，包括初始化它的名称 和 版本之后，实际上它还是没有马上被创建起来的。
      */
-    private static String name = "mydb.db"; //表示数据库的名称
+    private static String name = "h1024h.db"; //表示数据库的名称
     //private static int version = 1; //表示数据库的版本号
     private static int version = 1; //更新数据库的版本号，此时会执行 onUpgrade()方法
 

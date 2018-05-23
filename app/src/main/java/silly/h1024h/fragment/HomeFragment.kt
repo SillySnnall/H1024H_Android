@@ -41,6 +41,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
     }
 
     override fun initData() {
+        loading.visibility = View.VISIBLE
         initMoreListView()
         refreshloadview.init(recylerview, RecyclerAdapter(mPersenter?.getList()!!), 2)
         mPersenter?.getCoverImg(0)
@@ -55,17 +56,23 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
             mPersenter?.getCoverImg(1)
 
         }
-        refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ImgRes> {
-            override fun onItemClick(view: View?, data: ImgRes?, position: Int) {
-                mPersenter?.hotCount(data?.irType!!)
-                startActivity(Intent(context, DetailsActivity::class.java).putExtra(IntentName.IR_TYPE, data?.irType))
+        refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ResData> {
+            override fun onItemClick(view: View?, data: ResData?, position: Int) {
+//                mPersenter?.hotCount(data?.img_url!!)
+                var replace = data?.net_url?.replace(".html", "")
+                replace = "${data?.file?.replace("_url.txt", "")}/${replace?.substring(replace.lastIndexOf("/") + 1, replace.length)}.txt"
+                startActivity(Intent(context, DetailsActivity::class.java).putExtra(IntentName.IR_TYPE, replace))
             }
         })
+        loading.setOnClickListener {
+            // 拦截点击事件,加载时不可点击
+        }
     }
 
     override fun refresh(isLoad: Int) {
         if (isLoad == 0) refreshloadview.refreshComplete()
         else refreshloadview.loadComplete()
+        loading.visibility = View.GONE
     }
 
     override fun onDestroyView() {
@@ -86,9 +93,12 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
             moreDialog.dismiss()
         }
 
-        moreAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ResData>{
+        moreAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ResData> {
             override fun onItemClick(view: View?, data: ResData?, position: Int) {
                 moreDialog.dismiss()
+                mPersenter?.setFile(data?.file!!)
+                loading.visibility = View.VISIBLE
+                mPersenter?.getCoverImg(0)
             }
         })
     }

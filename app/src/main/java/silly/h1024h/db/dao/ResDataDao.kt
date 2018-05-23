@@ -16,7 +16,7 @@ class ResDataDao(private var tabName: String) {
     }
 
     fun createTable() {
-        val sql = "CREATE TABLE $tabName(_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,file TEXT,img_url TEXT)"
+        val sql = "CREATE TABLE $tabName(_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT,file TEXT,img_url TEXT,net_url TEXT)"
         db.execSQL(sql)
     }
 
@@ -48,7 +48,31 @@ class ResDataDao(private var tabName: String) {
         if (!cursor.moveToFirst()) return null
         //循环读取数据
         cursor.move(0)
-        val more = ResData(cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getInt(0))
+        val more = ResData(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),cursor.getInt(0))
+        cursor.close()
+        return more
+    }
+
+    @SuppressLint("Recycle")
+    fun queryByNetUrl(net_url: String): ResData? {
+        val cursor = db.rawQuery("SELECT * FROM $tabName WHERE net_url='$net_url'", null)
+        //将游标移到第一行
+        if (!cursor.moveToFirst()) return null
+        //循环读取数据
+        cursor.move(0)
+        val more = ResData(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),cursor.getInt(0))
+        cursor.close()
+        return more
+    }
+
+    @SuppressLint("Recycle")
+    fun queryByImgUrl(img_url: String): ResData? {
+        val cursor = db.rawQuery("SELECT * FROM $tabName WHERE img_url='$img_url'", null)
+        //将游标移到第一行
+        if (!cursor.moveToFirst()) return null
+        //循环读取数据
+        cursor.move(0)
+        val more = ResData(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4),cursor.getInt(0))
         cursor.close()
         return more
     }
@@ -57,7 +81,27 @@ class ResDataDao(private var tabName: String) {
         val queryByFile = queryByFile(resData.file)
         if (queryByFile == null) {
             //插入数据SQL语句
-            val sql = "INSERT INTO $tabName(name,file,img_url) VALUES('${resData.name}','${resData.file}','${resData.img_url}')"
+            val sql = "INSERT INTO $tabName(name,file,img_url,net_url) VALUES('${resData.name}','${resData.file}','${resData.img_url}','${resData.net_url}')"
+            //执行SQL语句
+            db.execSQL(sql)
+        }
+    }
+
+    fun createByNetUrl(resData: ResData) {
+        val queryByFile = queryByNetUrl(resData.net_url)
+        if (queryByFile == null) {
+            //插入数据SQL语句
+            val sql = "INSERT INTO $tabName(name,file,img_url,net_url) VALUES('${resData.name}','${resData.file}','${resData.img_url}','${resData.net_url}')"
+            //执行SQL语句
+            db.execSQL(sql)
+        }
+    }
+
+    fun createByImgUrl(resData: ResData) {
+        val queryByFile = queryByImgUrl(resData.img_url)
+        if (queryByFile == null) {
+            //插入数据SQL语句
+            val sql = "INSERT INTO $tabName(name,file,img_url,net_url) VALUES('${resData.name}','${resData.file}','${resData.img_url}','${resData.net_url}')"
             //执行SQL语句
             db.execSQL(sql)
         }
@@ -72,7 +116,7 @@ class ResDataDao(private var tabName: String) {
         if (cursor.moveToFirst()) {
             //循环读取数据
             while (!cursor.isAfterLast) {
-                list.add(ResData(cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getInt(0)))
+                list.add(ResData(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(0)))
                 //游标移到下一行
                 cursor.moveToNext()
             }
@@ -89,12 +133,18 @@ class ResDataDao(private var tabName: String) {
         if (cursor.moveToFirst()) {
             //循环读取数据
             while (!cursor.isAfterLast) {
-                list.add(ResData(cursor.getString(1), cursor.getString(2), cursor.getString(3),cursor.getInt(0)))
+                list.add(ResData(cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getInt(0)))
                 //游标移到下一行
                 cursor.moveToNext()
             }
         }
         cursor.close()
         return list
+    }
+
+    fun deleteAll() {
+        val sql = "DELETE FROM $tabName"
+        //执行SQL语句
+        db.execSQL(sql)
     }
 }

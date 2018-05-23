@@ -1,0 +1,27 @@
+tinkerpatchSupport {
+    /** 可以在debug的时候关闭 tinkerPatch **/
+    tinkerEnable = true
+
+    /** 是否使用一键接入功能  **/
+    reflectApplication = true
+
+    /** 是否开启加固模式，只有在使用加固时才能开启此开关 **/
+    protectedApp = false
+
+    /** 补丁是否支持新增 Activity (exported必须为false)**/
+    supportComponent = false
+
+    autoBackupApkPath = "${bakPath}"
+
+    /** 在tinkerpatch.com得到的appKey **/
+    appKey = "yourAppKey"
+    /** 注意: 若发布新的全量包, appVersion一定要更新 **/
+    appVersion = "1.0.0"
+
+    def pathPrefix = "${bakPath}/${baseInfo}/${variantName}/"
+    def name = "${project.name}-${variantName}"
+
+    baseApkFile = "${pathPrefix}/${name}.apk"
+    baseProguardMappingFile = "${pathPrefix}/${name}-mapping.txt"
+    baseResourceRFile = "${pathPrefix}/${name}-R.txt"
+}

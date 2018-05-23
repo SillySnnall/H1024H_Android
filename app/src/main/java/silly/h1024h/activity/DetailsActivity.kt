@@ -9,24 +9,24 @@ import silly.h1024h.base.adapter.BaseRecyclerViewAdapter
 import silly.h1024h.common.IntentName
 import silly.h1024h.common.IntentName.IR_TYPE
 import silly.h1024h.contract.DetailsContract
-import silly.h1024h.entity.ImgRes
 import silly.h1024h.persenter.DetailsPersenter
 import kotlinx.android.synthetic.main.activity_details.*
 import silly.h1024h.common.Common
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
+import silly.h1024h.entity.ResData
 import silly.h1024h.eventbus.EventBusConstant.GET_COVERIMG_DETAILED
 import silly.h1024h.eventbus.EventBusMessage
-import java.util.concurrent.Executors
 
 
 class DetailsActivity : BaseMvpActivity<DetailsContract.Presenter>(), DetailsContract.View {
 
-    private var irType = 0
+    private var file = ""
 
     override fun refresh(isLoad: Int) {
         if (isLoad == 0) refreshloadview.refreshComplete()
         else refreshloadview.loadComplete()
+        loading.visibility = View.GONE
     }
 
     override fun setPersenter(): DetailsContract.Presenter {
@@ -39,29 +39,37 @@ class DetailsActivity : BaseMvpActivity<DetailsContract.Presenter>(), DetailsCon
 
     override fun initView() {
         EventBus.getDefault().register(this)
-        irType = intent.getStringExtra(IR_TYPE).toInt()
+        file = intent.getStringExtra(IR_TYPE)
     }
 
     override fun initData() {
+        loading.visibility = View.VISIBLE
         refreshloadview.init(recylerview, RecyclerAdapter(Common.imgResList), 2)
-        mPersenter?.getCoverImgDetailed(0, irType)
+        mPersenter?.getCoverImgDetailed(0, file)
     }
 
     override fun initEvent() {
+        pre.setOnClickListener {
+            finish()
+        }
+
         refreshloadview.setOnRefreshListener {
-            mPersenter?.getCoverImgDetailed(0, irType)
+            mPersenter?.getCoverImgDetailed(0, file)
         }
 
         refreshloadview.addOnLoadListener {
-            mPersenter?.getCoverImgDetailed(1, irType)
+            mPersenter?.getCoverImgDetailed(1, file)
 
         }
-        refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ImgRes> {
-            override fun onItemClick(view: View?, data: ImgRes?, position: Int) {
+        refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ResData> {
+            override fun onItemClick(view: View?, data: ResData?, position: Int) {
                 startActivity(Intent(this@DetailsActivity, ImageActivity::class.java)
                         .putExtra(IntentName.IMG_LIST_POSITION, position))
             }
         })
+        loading.setOnClickListener {
+            // 拦截点击事件,加载时不可点击
+        }
     }
 
     override fun onDestroy() {
@@ -73,7 +81,7 @@ class DetailsActivity : BaseMvpActivity<DetailsContract.Presenter>(), DetailsCon
     @Subscribe// 需要加这个注解，否则会报错
     fun onEventMainThread(event: EventBusMessage) {
         if (GET_COVERIMG_DETAILED == event.type) {
-            mPersenter?.getCoverImgDetailed(1, irType)
+            mPersenter?.getCoverImgDetailed(1, file)
         }
     }
 }

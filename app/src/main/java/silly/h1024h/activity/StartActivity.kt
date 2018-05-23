@@ -42,7 +42,7 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
 
 
     override fun initData() {
-        mPersenter?.getMoreList()
+        mPersenter?.switchURL()
     }
 
     override fun initEvent() {
@@ -52,6 +52,7 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
     }
 
     private fun jumpMain() {
+        loading.text = "初始化完成"
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }

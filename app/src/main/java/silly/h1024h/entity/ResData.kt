@@ -10,4 +10,6 @@ data class ResData(
         var name: String = "",
         var file: String = "",
         var img_url: String = "",
-        var _id: Int = 0) : Serializable
+        var net_url: String = "",
+        var _id: Int = 0,
+        var visible: Boolean = true) : Serializable

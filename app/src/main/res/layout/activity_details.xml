@@ -6,20 +6,66 @@
     android:orientation="vertical"
     tools:context="silly.h1024h.activity.MainActivity">
 
-    <silly.h1024h.view.RefreshLoadView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_black"
+        android:orientation="horizontal">
 
-        android:id="@+id/refreshloadview"
+
+        <ImageView
+            android:id="@+id/pre"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="9dp"
+            android:src="@drawable/pre"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="览图"
+            android:textColor="@color/color_1296db"
+            android:textSize="18dp"
+            tools:ignore="HardcodedText,RelativeOverlap,SpUsage" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recylerview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/color_262626"
-            android:padding="5dp" />
-    </silly.h1024h.view.RefreshLoadView>
+        <silly.h1024h.view.RefreshLoadView
 
+            android:id="@+id/refreshloadview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recylerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/color_262626"
+                android:padding="5dp" />
+        </silly.h1024h.view.RefreshLoadView>
+
+        <RelativeLayout
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:background="@color/color_262626"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 </LinearLayout>
 
 

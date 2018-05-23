@@ -1,5 +1,6 @@
 package silly.h1024h.persenter
 
+import silly.h1024h.common.Common
 import silly.h1024h.common.Common.TB_COVER_URL
 import silly.h1024h.contract.HomeContract
 import silly.h1024h.db.dao.ResDataDao
@@ -15,19 +16,18 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
 
     private val resDataList = arrayListOf<ResData>()
     private var pageNum = 0
-    private var itemCount = 15
-    private var file = "3agirl_url.txt"
+    private var itemCount = 20
     private var resDataDao = ResDataDao(TB_COVER_URL)
 
     init {
         val queryForAll = resDataDao.queryForAll()
-        if (queryForAll.isNotEmpty()) {
-            file = queryForAll[0].file
+        if (queryForAll.isNotEmpty() && Common.type_file.isEmpty()) {
+            Common.type_file = queryForAll[0].file
         }
     }
 
     override fun setFile(file: String) {
-        this.file = file
+        Common.type_file = file
     }
 
     override fun getList(): ArrayList<ResData> {
@@ -42,24 +42,30 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
      * 网路获取全部
      */
     override fun getCoverImg(isLoad: Int) {
-        HttpManager.get("$URL_SERVICE_CODING/url/$file",
-                success = {
-                    val split = it?.split("\n")
-                    val tabName = "tb_" + file.replace("_url.txt", "")
-                    val coverDao = ResDataDao(tabName)
-                    if (coverDao.queryForAll().size != split?.size) {
-                        for (str in split!!) {
-                            if (str.isEmpty()) continue
-                            val split1 = str.split("=")
-                            val more = ResData(split1[0], split1[1],split1[2])
-                            coverDao.createByFile(more)
+        if (Common.type_file.isEmpty()) return
+        val tabName = "tb_" + Common.type_file.replace("_url.txt", "")
+        val coverDao = ResDataDao(tabName)
+        if (coverDao.queryForAll().isNotEmpty()) {
+            getCover(isLoad, coverDao)
+        } else {
+            HttpManager.get("$URL_SERVICE_CODING/url/${Common.type_file}",
+                    success = {
+                        val split = it?.split("\n")
+                        if (coverDao.queryForAll().size != split?.size) {
+                            coverDao.deleteAll()
+                            for (str in split!!) {
+                                if (str.isEmpty()) continue
+                                val split1 = str.split("=")
+                                val more = ResData(split1[0], Common.type_file, split1[2], split1[1])
+                                coverDao.createByNetUrl(more)
+                            }
                         }
-                    }
-                    getCover(isLoad,coverDao)
-                },
-                fail = {
-                    ToastUtil.toast(it!!)
-                })
+                        getCover(isLoad, coverDao)
+                    },
+                    fail = {
+                        ToastUtil.toast(it!!)
+                    })
+        }
     }
 
     override fun hotCount(irType: String) {
@@ -67,9 +73,9 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
     }
 
     /**
-     * 获取分页获取
+     * 封面分页获取
      */
-    private fun getCover(isLoad: Int,coverDao:ResDataDao) {
+    private fun getCover(isLoad: Int, coverDao: ResDataDao) {
         if (isLoad == 0) {
             pageNum = 0
             resDataList.clear()

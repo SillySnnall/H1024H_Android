@@ -9,6 +9,6 @@ interface StartContract {
     }
 
     interface Presenter {
-        fun getMoreList()
+        fun switchURL()
     }
 }

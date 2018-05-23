@@ -1,11 +1,18 @@
 package silly.h1024h.fragment
 
+import android.media.Image
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.ProgressBar
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.GlideDrawable
+import com.bumptech.glide.request.animation.GlideAnimation
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
 import kotlinx.android.synthetic.main.fragment_image.*
 import silly.h1024h.R
 import silly.h1024h.common.Common
@@ -31,6 +38,14 @@ class ImageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Glide.with(context).load(HttpConfig.URL_SERVICE + Common.imgResList[mPosition].img_url).into(image)
+        val image = view.findViewById<ImageView>(R.id.image)
+        val loading = view.findViewById<ProgressBar>(R.id.loading)
+        val uri = Uri.parse(Common.imgResList[mPosition].img_url)
+        Glide.with(context).load(uri).into(object : GlideDrawableImageViewTarget(image) {
+            override fun onResourceReady(resource: GlideDrawable?, animation: GlideAnimation<in GlideDrawable>?) {
+                super.onResourceReady(resource, animation)
+                loading.visibility = View.GONE
+            }
+        })
     }
 }

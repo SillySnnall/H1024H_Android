@@ -17,4 +17,6 @@ object Common{
      * 分类列表文件
      */
     const val COVER_URL = "cover_url.txt"
+
+    var type_file = ""
 }
