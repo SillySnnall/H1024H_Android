@@ -5,6 +5,7 @@ import android.app.Application
 import android.database.sqlite.SQLiteDatabase
 import silly.h1024h.db.NativeDataBaseHelper
 
+
 @SuppressLint("StaticFieldLeak")
 object Init {
     lateinit var ctx: Application
