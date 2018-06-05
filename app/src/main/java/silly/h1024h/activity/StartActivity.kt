@@ -34,8 +34,10 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
     override fun initView() {
         timer?.schedule(object : TimerTask() {
             override fun run() {
-                isJump = true
-                if (initSuccess) jumpMain()
+                runOnUiThread {
+                    isJump = true
+                    if (initSuccess) jumpMain()
+                }
             }
         }, 2000)
     }
