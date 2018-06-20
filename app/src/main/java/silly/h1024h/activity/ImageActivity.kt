@@ -12,7 +12,6 @@ import silly.h1024h.base.activity.BaseActivity
 import silly.h1024h.common.Common
 import silly.h1024h.common.IntentName.IMG_LIST_POSITION
 import silly.h1024h.entity.ImgRes
-import silly.h1024h.entity.ResData
 import silly.h1024h.eventbus.EventBusConstant.GET_COVERIMG_DETAILED
 import silly.h1024h.eventbus.EventBusConstant.REFRESH_VIEWPAGER
 import silly.h1024h.eventbus.EventBusMessage
@@ -55,7 +54,7 @@ class ImageActivity : BaseActivity() {
         })
     }
 
-    private inner class ImagePagerAdapter(fm: FragmentManager, var imaList: List<ResData>?) : FragmentPagerAdapter(fm) {
+    private inner class ImagePagerAdapter(fm: FragmentManager, var imaList: List<ImgRes>?) : FragmentPagerAdapter(fm) {
         override fun getCount(): Int {
             return if (imaList == null) 0 else imaList!!.size
         }

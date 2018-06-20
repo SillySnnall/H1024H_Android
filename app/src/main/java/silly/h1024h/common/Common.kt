@@ -1,13 +1,12 @@
 package silly.h1024h.common
 
 import silly.h1024h.entity.ImgRes
-import silly.h1024h.entity.ResData
 
 object Common{
     /**
      * viewpage图片查看和详情列表公用的list
      */
-    val imgResList = arrayListOf<ResData>()
+    val imgResList = arrayListOf<ImgRes>()
 
     /**
      * 分类列表表名
@@ -18,5 +17,5 @@ object Common{
      */
     const val COVER_URL = "cover_url.txt"
 
-    var type_file = ""
+    var table = ""
 }

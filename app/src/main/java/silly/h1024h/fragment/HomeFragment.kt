@@ -4,7 +4,6 @@ import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import kotlinx.android.synthetic.main.activity_image.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -16,17 +15,21 @@ import silly.h1024h.base.adapter.BaseRecyclerViewAdapter
 import silly.h1024h.base.fragment.BaseMvpFragment
 import silly.h1024h.common.IntentName
 import silly.h1024h.contract.HomeContract
-import silly.h1024h.db.dao.ResDataDao
 import silly.h1024h.entity.ImgRes
-import silly.h1024h.entity.ResData
+import silly.h1024h.entity.Type
 import silly.h1024h.eventbus.EventBusConstant
 import silly.h1024h.eventbus.EventBusMessage
 import silly.h1024h.persenter.HomePersenter
 import silly.h1024h.view.SillyDialog
 
 class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.View {
+    override fun showList() {
+        moreAdapter.notifyDataSetChanged()
+        mPersenter?.getCoverImg(0)
+    }
 
     private lateinit var moreDialog: SillyDialog
+    private lateinit var moreAdapter: MoreAdapter
 
     override fun setPersenter(): HomeContract.Presenter {
         return HomePersenter(this)
@@ -42,9 +45,9 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
 
     override fun initData() {
         loading.visibility = View.VISIBLE
+        mPersenter?.getTypeListData()
         initMoreListView()
         refreshloadview.init(recylerview, RecyclerAdapter(mPersenter?.getList()!!), 2)
-        mPersenter?.getCoverImg(0)
     }
 
     override fun initEvent() {
@@ -56,12 +59,10 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
             mPersenter?.getCoverImg(1)
 
         }
-        refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ResData> {
-            override fun onItemClick(view: View?, data: ResData?, position: Int) {
-//                mPersenter?.hotCount(data?.img_url!!)
-                var replace = data?.net_url?.replace(".html", "")
-                replace = "${data?.file?.replace("_url.txt", "")}/${replace?.substring(replace.lastIndexOf("/") + 1, replace.length)}.txt"
-                startActivity(Intent(context, DetailsActivity::class.java).putExtra(IntentName.IR_TYPE, replace))
+        refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ImgRes> {
+            override fun onItemClick(view: View?, data: ImgRes?, position: Int) {
+                mPersenter?.hotCount(data?.type!!)
+                startActivity(Intent(context, DetailsActivity::class.java).putExtra(IntentName.IR_TYPE, data?.type))
             }
         })
         loading.setOnClickListener {
@@ -84,19 +85,19 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
 
 
     private fun initMoreListView() {
-        moreDialog = SillyDialog(activity).loadLayout(R.layout.dialog_more).setGCCanceledOnTouchOutside(true)
+        moreDialog = SillyDialog(activity!!, R.style.list_dialog).loadLayout(R.layout.dialog_more).setGCCanceledOnTouchOutside(true)
         val dialog_recyclerview = moreDialog.getView<RecyclerView>(R.id.dialog_recyclerview)
         dialog_recyclerview.layoutManager = LinearLayoutManager(activity)
-        val moreAdapter = MoreAdapter(mPersenter?.getResDataDao()?.queryForAll()!!)
+        moreAdapter = MoreAdapter(mPersenter?.getTypeList()!!)
         dialog_recyclerview.adapter = moreAdapter
         moreDialog.setCanceledListener {
             moreDialog.dismiss()
         }
 
-        moreAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ResData> {
-            override fun onItemClick(view: View?, data: ResData?, position: Int) {
+        moreAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Type> {
+            override fun onItemClick(view: View?, data: Type?, position: Int) {
                 moreDialog.dismiss()
-                mPersenter?.setFile(data?.file!!)
+                mPersenter?.setType(data?.type!!)
                 loading.visibility = View.VISIBLE
                 mPersenter?.getCoverImg(0)
             }
@@ -106,7 +107,8 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
     @Subscribe// 需要加这个注解，否则会报错
     fun onEventMainThread(event: EventBusMessage) {
         if (EventBusConstant.MORE_DIALOG_SHOW == event.type) {
-            moreDialog.show()
+            if (mPersenter?.getTypeList()?.isEmpty()!!) mPersenter?.getTypeListData()
+            else moreDialog.show()
         }
     }
 }

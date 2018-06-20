@@ -40,7 +40,7 @@ class ImageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val image = view.findViewById<ImageView>(R.id.image)
         val loading = view.findViewById<ProgressBar>(R.id.loading)
-        val uri = Uri.parse(Common.imgResList[mPosition].img_url)
+        val uri = Uri.parse(Common.imgResList[mPosition].url)
         Glide.with(context).load(uri).into(object : GlideDrawableImageViewTarget(image) {
             override fun onResourceReady(resource: GlideDrawable?, animation: GlideAnimation<in GlideDrawable>?) {
                 super.onResourceReady(resource, animation)

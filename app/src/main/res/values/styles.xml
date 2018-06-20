@@ -4,6 +4,20 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="NoTitle"> <!--自定义主题名称-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <style name="list_dialog"> <!--自定义主题名称-->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+    </style>
+
     <style name="silly_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item><!--边框-->
         <item name="android:windowNoTitle">true</item><!--无标题-->

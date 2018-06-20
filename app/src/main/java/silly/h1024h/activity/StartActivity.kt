@@ -1,13 +1,9 @@
 package silly.h1024h.activity
 
 import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
 import kotlinx.android.synthetic.main.activity_start.*
 import silly.h1024h.R
-import silly.h1024h.R.id.start_root
-import silly.h1024h.base.activity.BaseActivity
 import silly.h1024h.base.activity.BaseMvpActivity
-import silly.h1024h.contract.DetailsContract
 import silly.h1024h.contract.StartContract
 import silly.h1024h.persenter.StartPersenter
 import java.util.*
@@ -34,8 +30,10 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
     override fun initView() {
         timer?.schedule(object : TimerTask() {
             override fun run() {
-                isJump = true
-                if (initSuccess) jumpMain()
+                runOnUiThread({
+                    isJump = true
+                    if (initSuccess) jumpMain()
+                })
             }
         }, 2000)
     }

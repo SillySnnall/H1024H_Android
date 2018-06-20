@@ -10,8 +10,6 @@ import org.greenrobot.eventbus.EventBus
 import silly.h1024h.adapter.MoreAdapter
 import silly.h1024h.base.activity.BaseActivity
 import silly.h1024h.base.adapter.BaseRecyclerViewAdapter
-import silly.h1024h.db.dao.ResDataDao
-import silly.h1024h.entity.ResData
 import silly.h1024h.eventbus.EventBusConstant
 import silly.h1024h.eventbus.EventBusMessage
 import silly.h1024h.fragment.HomeFragment

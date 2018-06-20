@@ -29,7 +29,7 @@ class ResDataDao(private var tabName: String) {
         if (tableName == null) {
             return false
         }
-        val sql = "select count(*) as c from sqlite_master where type ='table' and name ='$tableName' "
+        val sql = "select count(*) as c from sqlite_master where table ='table' and name ='$tableName' "
         var cursor = Init.db.rawQuery(sql, null)
         if (cursor!!.moveToNext()) {
             val count = cursor.getInt(0)

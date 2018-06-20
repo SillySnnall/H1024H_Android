@@ -1,12 +1,13 @@
 package silly.h1024h.contract
 
-import silly.h1024h.db.dao.ResDataDao
 import silly.h1024h.entity.ImgRes
-import silly.h1024h.entity.ResData
+import silly.h1024h.entity.Type
 
 interface HomeContract {
     interface View {
         fun refresh(isLoad: Int)
+
+        fun showList()
     }
 
     interface Presenter {
@@ -15,12 +16,14 @@ interface HomeContract {
          */
         fun getCoverImg(isLoad: Int)
 
-        fun getList(): List<ResData>
+        fun getList(): List<ImgRes>
 
-        fun hotCount(irType: String)
+        fun getTypeList(): List<Type>
 
-        fun setFile(file: String)
+        fun getTypeListData()
 
-        fun getResDataDao(): ResDataDao
+        fun hotCount(type: String)
+
+        fun setType(type: String)
     }
 }

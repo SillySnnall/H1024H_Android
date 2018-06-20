@@ -9,6 +9,6 @@ interface DetailsContract {
         /**
          * 加载更多为1，刷新为0
          */
-        fun getCoverImgDetailed(isLoad:Int,file: String)
+        fun getCoverImgDetailed(isLoad:Int, type: String)
     }
 }

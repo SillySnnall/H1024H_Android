@@ -1,27 +1,45 @@
 package silly.h1024h.parameters
 
+import silly.h1024h.common.Common.table
+
 object Parameter {
-    fun getCoverImg(pageNum: Int, itemCount: Int): HashMap<String, String> {
+    fun getCoverImg(table: String, pageNum: Int, itemCount: Int): HashMap<String, String> {
         val paramsMap = HashMap<String, String>()
-        paramsMap["ac"] = "getCoverImg"
+        paramsMap["ac"] = "get_cover_img"
+        paramsMap["table"] = table
         paramsMap["pageNum"] = pageNum.toString()
         paramsMap["itemCount"] = itemCount.toString()
         return paramsMap
     }
 
-    fun getCoverImgDetailed(irType: Int, pageNum: Int, itemCount: Int): HashMap<String, String> {
+    fun getCoverImgDetailed(table: String, type: String, pageNum: Int, itemCount: Int): HashMap<String, String> {
         val paramsMap = HashMap<String, String>()
-        paramsMap["ac"] = "getCoverImgDetailed"
-        paramsMap["irType"] = irType.toString()
+        paramsMap["ac"] = "get_cover_img_detailed"
+        paramsMap["table"] = table
+        paramsMap["type"] = type
         paramsMap["pageNum"] = pageNum.toString()
         paramsMap["itemCount"] = itemCount.toString()
         return paramsMap
     }
 
-    fun hotCount(irType: String): HashMap<String, String> {
+    fun hotCount(type: String): HashMap<String, String> {
         val paramsMap = HashMap<String, String>()
-        paramsMap["ac"] = "hotCount"
-        paramsMap["irType"] = irType
+        paramsMap["ac"] = "hot_count"
+        paramsMap["type"] = type
+        return paramsMap
+    }
+
+    fun getTypeList(): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "get_type_list"
+        return paramsMap
+    }
+
+    fun getHotImg(pageNum: Int, itemCount: Int): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "get_hot"
+        paramsMap["pageNum"] = pageNum.toString()
+        paramsMap["itemCount"] = itemCount.toString()
         return paramsMap
     }
 }
