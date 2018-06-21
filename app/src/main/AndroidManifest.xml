@@ -42,6 +42,12 @@
             android:name=".activity.ImageActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.VestWebViewActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/NoTitle_FullScreen"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

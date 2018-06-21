@@ -24,6 +24,8 @@ interface HomeContract {
 
         fun hotCount(type: String)
 
-        fun setType(type: String)
+        fun setTable(table: String)
+
+        fun getTable(): String
     }
 }

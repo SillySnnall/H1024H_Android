@@ -1,21 +1,17 @@
 package silly.h1024h.activity
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.annotation.SuppressLint
 import android.view.View
 import silly.h1024h.R
 import kotlinx.android.synthetic.main.layout_bottom.*
 import kotlinx.android.synthetic.main.layout_top.*
 import org.greenrobot.eventbus.EventBus
-import silly.h1024h.adapter.MoreAdapter
 import silly.h1024h.base.activity.BaseActivity
-import silly.h1024h.base.adapter.BaseRecyclerViewAdapter
 import silly.h1024h.eventbus.EventBusConstant
 import silly.h1024h.eventbus.EventBusMessage
 import silly.h1024h.fragment.HomeFragment
 import silly.h1024h.fragment.MeFragment
 import silly.h1024h.fragment.RecommendFragment
-import silly.h1024h.view.SillyDialog
 
 
 class MainActivity : BaseActivity() {
@@ -26,16 +22,16 @@ class MainActivity : BaseActivity() {
     }
 
 
-
     override fun setLayoutView(): Int {
         return R.layout.activity_main
     }
 
     override fun initView() {
+        initFragment()
         selectBottom(0)
-        selectFragment(0)
         setTop(0)
     }
+
 
     override fun initData() {
 
@@ -76,12 +72,26 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    private var recommendFragment: RecommendFragment? = null
+    private var homeFragment: HomeFragment? = null
+    private var meFragment: MeFragment? = null
+    @SuppressLint("CommitTransaction")
+    private fun initFragment() {
+        if (recommendFragment == null) recommendFragment = RecommendFragment()
+        if (homeFragment == null) homeFragment = HomeFragment()
+        if (meFragment == null) meFragment = MeFragment()
+        supportFragmentManager.beginTransaction().add(R.id.frameLayout, recommendFragment)
+                .add(R.id.frameLayout, homeFragment).add(R.id.frameLayout, meFragment)
+                .hide(homeFragment).hide(meFragment).show(recommendFragment).commit()
+    }
+
     private fun selectFragment(fragmentIndex: Int) {
         val beginTransaction = supportFragmentManager.beginTransaction()
+                .hide(recommendFragment).hide(homeFragment).hide(meFragment)
         when (fragmentIndex) {
-            0 -> beginTransaction.replace(R.id.frameLayout, RecommendFragment())
-            1 -> beginTransaction.replace(R.id.frameLayout, HomeFragment())
-            2 -> beginTransaction.replace(R.id.frameLayout, MeFragment())
+            0 -> beginTransaction.show(recommendFragment)
+            1 -> beginTransaction.show(homeFragment)
+            2 -> beginTransaction.show(meFragment)
         }
         beginTransaction.commit()
     }

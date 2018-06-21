@@ -10,6 +10,10 @@ import java.util.*
 
 
 class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.View {
+    override fun initEvent() {
+
+    }
+
     override fun initSuccess() {
         initSuccess = true
         if (isJump) jumpMain()
@@ -43,16 +47,21 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
         mPersenter?.switchURL()
     }
 
-    override fun initEvent() {
-        start_root.setOnClickListener {
-            if (isJump) jumpMain()
-        }
-    }
-
     private fun jumpMain() {
         loading.text = "初始化完成"
-        startActivity(Intent(this, MainActivity::class.java))
-        finish()
+        when (mPersenter?.getServerType()) {
+            0 -> {
+            }
+            1 -> {
+                startActivity(Intent(this, VestWebViewActivity::class.java))
+                finish()
+            }
+            2 -> {
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+        }
+
     }
 
     override fun onDestroy() {

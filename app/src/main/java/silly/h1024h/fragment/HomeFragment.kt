@@ -62,7 +62,8 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
         refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ImgRes> {
             override fun onItemClick(view: View?, data: ImgRes?, position: Int) {
                 mPersenter?.hotCount(data?.type!!)
-                startActivity(Intent(context, DetailsActivity::class.java).putExtra(IntentName.IR_TYPE, data?.type))
+                startActivity(Intent(context, DetailsActivity::class.java).putExtra(IntentName.IR_TYPE, data?.type)
+                        .putExtra(IntentName.IR_TABLE, mPersenter?.getTable()))
             }
         })
         loading.setOnClickListener {
@@ -97,7 +98,7 @@ class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.Vie
         moreAdapter.setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<Type> {
             override fun onItemClick(view: View?, data: Type?, position: Int) {
                 moreDialog.dismiss()
-                mPersenter?.setType(data?.type!!)
+                mPersenter?.setTable(data?.type!!)
                 loading.visibility = View.VISIBLE
                 mPersenter?.getCoverImg(0)
             }

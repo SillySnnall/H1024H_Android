@@ -1,6 +1,5 @@
 package silly.h1024h.persenter
 
-import silly.h1024h.common.Common
 import silly.h1024h.contract.RecommendContract
 import silly.h1024h.entity.ImgRes
 import silly.h1024h.entity.ImgResData
@@ -22,13 +21,12 @@ class RecommendPersenter(private val mView: RecommendContract.View) : RecommendC
 
     private val resDataList = arrayListOf<ImgRes>()
     private var pageNum = 0
-    private var itemCount = 3
+    private var itemCount = 20
 
     /**
      * 网路获取封面
      */
     override fun getHot(isLoad: Int) {
-        if (Common.table.isEmpty()) return
         if (isLoad == 0) {
             pageNum = 0
             resDataList.clear()

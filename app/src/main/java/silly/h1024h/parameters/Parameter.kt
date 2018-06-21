@@ -1,12 +1,11 @@
 package silly.h1024h.parameters
 
-import silly.h1024h.common.Common.table
 
 object Parameter {
     fun getCoverImg(table: String, pageNum: Int, itemCount: Int): HashMap<String, String> {
         val paramsMap = HashMap<String, String>()
         paramsMap["ac"] = "get_cover_img"
-        paramsMap["table"] = table
+        paramsMap["table_name"] = table
         paramsMap["pageNum"] = pageNum.toString()
         paramsMap["itemCount"] = itemCount.toString()
         return paramsMap
@@ -15,7 +14,7 @@ object Parameter {
     fun getCoverImgDetailed(table: String, type: String, pageNum: Int, itemCount: Int): HashMap<String, String> {
         val paramsMap = HashMap<String, String>()
         paramsMap["ac"] = "get_cover_img_detailed"
-        paramsMap["table"] = table
+        paramsMap["table_name"] = table
         paramsMap["type"] = type
         paramsMap["pageNum"] = pageNum.toString()
         paramsMap["itemCount"] = itemCount.toString()
@@ -40,6 +39,12 @@ object Parameter {
         paramsMap["ac"] = "get_hot"
         paramsMap["pageNum"] = pageNum.toString()
         paramsMap["itemCount"] = itemCount.toString()
+        return paramsMap
+    }
+
+    fun getMianUrl(): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "get_main_url"
         return paramsMap
     }
 }

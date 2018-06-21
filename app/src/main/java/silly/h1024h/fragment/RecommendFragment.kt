@@ -4,10 +4,12 @@ import android.content.Intent
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_recommend.*
 import silly.h1024h.R
+import silly.h1024h.R.attr.type
 import silly.h1024h.activity.DetailsActivity
 import silly.h1024h.adapter.RecyclerAdapter
 import silly.h1024h.base.adapter.BaseRecyclerViewAdapter
 import silly.h1024h.base.fragment.BaseMvpFragment
+import silly.h1024h.common.Common
 import silly.h1024h.common.IntentName
 import silly.h1024h.contract.RecommendContract
 import silly.h1024h.entity.ImgRes
@@ -45,7 +47,8 @@ class RecommendFragment : BaseMvpFragment<RecommendContract.Presenter>(), Recomm
         refreshloadview.getAdapter<RecyclerAdapter>().setOnItemClickListener(object : BaseRecyclerViewAdapter.OnItemClickListener<ImgRes> {
             override fun onItemClick(view: View?, data: ImgRes?, position: Int) {
                 mPersenter?.hotCount(data?.type!!)
-                startActivity(Intent(context, DetailsActivity::class.java).putExtra(IntentName.IR_TYPE, data?.type))
+                startActivity(Intent(context, DetailsActivity::class.java).putExtra(IntentName.IR_TYPE, data?.type)
+                        .putExtra(IntentName.IR_TABLE, data?.table_name))
             }
         })
         loading.setOnClickListener {

@@ -18,13 +18,13 @@ class DetailsPersenter(private val mView: DetailsContract.View) : DetailsContrac
     /**
      * 网路获取详细图片
      */
-    override fun getCoverImgDetailed(isLoad: Int, type: String) {
-        if (Common.table.isEmpty()) return
+    override fun getCoverImgDetailed(isLoad: Int, table: String,type: String) {
+        if (table.isEmpty()) return
         if (isLoad == 0) {
             pageNum = 0
             Common.imgResList.clear()
         } else pageNum += itemCount
-        HttpManager.post(Parameter.getCoverImgDetailed(Common.table, type, pageNum, itemCount), ImgResData::class.java, success = {
+        HttpManager.post(Parameter.getCoverImgDetailed(table, type, pageNum, itemCount), ImgResData::class.java, success = {
             Common.imgResList.addAll(it?.data!!)
             EventBus.getDefault().post(EventBusMessage(EventBusConstant.REFRESH_VIEWPAGER))
             mView.refresh(isLoad)

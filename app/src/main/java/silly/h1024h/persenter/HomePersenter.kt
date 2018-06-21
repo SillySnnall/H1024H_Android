@@ -14,6 +14,7 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
     private val typeList = arrayListOf<Type>()
     private var pageNum = 0
     private var itemCount = 20
+    private var table = ""
 
     init {
 
@@ -30,7 +31,7 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
                 HttpManager.post(Parameter.getTypeList(), TypeList::class.java, success = {
                     typeList.clear()
                     typeList.addAll(it?.data!!)
-                    Common.table = typeList[0].type
+                    this.table = typeList[0].type
                     mView.showList()
                     onlyOne = true
                 }, fail = {
@@ -44,8 +45,12 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
         }
     }
 
-    override fun setType(type: String) {
-        Common.table = type
+    override fun getTable(): String {
+        return this.table
+    }
+
+    override fun setTable(table: String) {
+        this.table = table
     }
 
     override fun getList(): List<ImgRes> {
@@ -60,12 +65,12 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
      * 网路获取封面
      */
     override fun getCoverImg(isLoad: Int) {
-        if (Common.table.isEmpty()) return
+        if (this.table.isEmpty()) return
         if (isLoad == 0) {
             pageNum = 0
             resDataList.clear()
         } else pageNum += itemCount
-        HttpManager.post(Parameter.getCoverImg(Common.table, pageNum, itemCount), ImgResData::class.java, success = {
+        HttpManager.post(Parameter.getCoverImg(this.table, pageNum, itemCount), ImgResData::class.java, success = {
             resDataList.addAll(it?.data!!)
             mView.refresh(isLoad)
         }, fail = {

@@ -5,6 +5,7 @@ package silly.h1024h.common
  */
 object IntentName{
     const val IR_TYPE = "irType"
+    const val IR_TABLE = "irTable"
     const val IMG_LIST = "imgList"
     const val IMG_LIST_POSITION = "imgListPosition"
 }

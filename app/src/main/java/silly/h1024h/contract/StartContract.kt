@@ -10,5 +10,7 @@ interface StartContract {
 
     interface Presenter {
         fun switchURL()
+
+        fun getServerType(): Int
     }
 }
