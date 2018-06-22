@@ -3,6 +3,7 @@ package silly.h1024h.fragment
 import android.content.Intent
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_recommend.*
+import kotlinx.android.synthetic.main.loading_view.*
 import silly.h1024h.R
 import silly.h1024h.R.attr.type
 import silly.h1024h.activity.DetailsActivity
@@ -16,6 +17,11 @@ import silly.h1024h.entity.ImgRes
 import silly.h1024h.persenter.RecommendPersenter
 
 class RecommendFragment : BaseMvpFragment<RecommendContract.Presenter>(), RecommendContract.View {
+    override fun fail(isLoad: Int) {
+        if (isLoad == 0) refreshloadview.refreshComplete()
+        else refreshloadview.loadComplete()
+        loading.visibility = View.GONE
+    }
 
     override fun setPersenter(): RecommendContract.Presenter {
         return RecommendPersenter(this)

@@ -6,19 +6,21 @@ import silly.h1024h.R
 import kotlinx.android.synthetic.main.layout_bottom.*
 import kotlinx.android.synthetic.main.layout_top.*
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 import silly.h1024h.base.activity.BaseActivity
 import silly.h1024h.eventbus.EventBusConstant
 import silly.h1024h.eventbus.EventBusMessage
 import silly.h1024h.fragment.HomeFragment
 import silly.h1024h.fragment.MeFragment
 import silly.h1024h.fragment.RecommendFragment
+import silly.h1024h.utils.Util
 
 
 class MainActivity : BaseActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-
+        EventBus.getDefault().unregister(this)
     }
 
 
@@ -27,6 +29,7 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initView() {
+        EventBus.getDefault().register(this)
         initFragment()
         selectBottom(0)
         setTop(0)
@@ -55,6 +58,7 @@ class MainActivity : BaseActivity() {
             selectBottom(2)
             selectFragment(2)
             setTop(2)
+            EventBus.getDefault().post(EventBusMessage(EventBusConstant.LOGIN))
         }
         top_more.setOnClickListener {
             EventBus.getDefault().post(EventBusMessage(EventBusConstant.MORE_DIALOG_SHOW))
@@ -107,9 +111,16 @@ class MainActivity : BaseActivity() {
                 top_more.visibility = View.VISIBLE
             }
             2 -> {
-                top_title.text = "我的"
+                top_title.text = if (Util.isLogin()) "我的" else "登录"
                 top_more.visibility = View.GONE
             }
+        }
+    }
+
+    @Subscribe// 需要加这个注解，否则会报错
+    fun onEventMainThread(event: EventBusMessage) {
+        if (EventBusConstant.LOGIN == event.type) {
+            top_title.text = if (Util.isLogin()) "我的" else "登录"
         }
     }
 

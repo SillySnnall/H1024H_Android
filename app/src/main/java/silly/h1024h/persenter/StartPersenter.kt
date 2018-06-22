@@ -25,7 +25,8 @@ class StartPersenter(private val mView: StartContract.View) : StartContract.Pres
 
     override fun switchURL() {
         HttpManager.post(Parameter.getMianUrl(), BaseResult::class.java, success = {
-            serverType = it?.data.toString().toInt()
+            if (it?.msg != 0) return@post
+            serverType = it.data.toString().toInt()
             mView.initSuccess()
         }, fail = {
             ToastUtil.toast(it!!)

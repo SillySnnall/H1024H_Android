@@ -11,6 +11,7 @@ import silly.h1024h.common.IntentName.IR_TYPE
 import silly.h1024h.contract.DetailsContract
 import silly.h1024h.persenter.DetailsPersenter
 import kotlinx.android.synthetic.main.activity_details.*
+import kotlinx.android.synthetic.main.loading_view.*
 import silly.h1024h.common.Common
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -21,6 +22,11 @@ import silly.h1024h.eventbus.EventBusMessage
 
 
 class DetailsActivity : BaseMvpActivity<DetailsContract.Presenter>(), DetailsContract.View {
+    override fun fail(isLoad: Int) {
+        if (isLoad == 0) refreshloadview.refreshComplete()
+        else refreshloadview.loadComplete()
+        loading.visibility = View.GONE
+    }
 
     private var type = ""
     private var table = ""

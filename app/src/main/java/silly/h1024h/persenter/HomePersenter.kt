@@ -29,6 +29,11 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
             onlyOne = false
             if (typeList.isEmpty()) {
                 HttpManager.post(Parameter.getTypeList(), TypeList::class.java, success = {
+                    if(it?.msg != 0){
+                        ToastUtil.toast(it?.param!!)
+                        mView.fail(0)
+                        return@post
+                    }
                     typeList.clear()
                     typeList.addAll(it?.data!!)
                     this.table = typeList[0].type
@@ -37,6 +42,7 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
                 }, fail = {
                     ToastUtil.toast(it!!)
                     onlyOne = true
+                    mView.fail(0)
                 })
             } else {
                 mView.showList()
@@ -71,10 +77,16 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
             resDataList.clear()
         } else pageNum += itemCount
         HttpManager.post(Parameter.getCoverImg(this.table, pageNum, itemCount), ImgResData::class.java, success = {
+            if(it?.msg != 0){
+                ToastUtil.toast(it?.param!!)
+                mView.fail(isLoad)
+                return@post
+            }
             resDataList.addAll(it?.data!!)
             mView.refresh(isLoad)
         }, fail = {
             ToastUtil.toast(it!!)
+            mView.fail(isLoad)
         })
     }
 

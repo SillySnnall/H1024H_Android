@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/register_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_black"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/pre"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="9dp"
+            android:src="@drawable/pre"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="注册"
+            android:textColor="@color/color_1296db"
+            android:textSize="18dp"
+            tools:ignore="HardcodedText,RelativeOverlap,SpUsage" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_262626"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/h1024h_logo" />
+
+        <EditText
+            android:id="@+id/account"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/shape_5_1296db"
+            android:gravity="center"
+            android:hint="帐号"
+            android:singleLine="true"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:textColor="@color/color_1296db"
+            android:textColorHint="@color/color_441296db"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_5_1296db"
+            android:gravity="center"
+            android:singleLine="true"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:textColor="@color/color_1296db"
+            android:textColorHint="@color/color_441296db"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/password_sure"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:singleLine="true"
+            android:background="@drawable/shape_5_1296db"
+            android:gravity="center"
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:textColor="@color/color_1296db"
+            android:textColorHint="@color/color_441296db"
+            android:textSize="18dp" />
+
+        <TextView
+            android:id="@+id/register"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/shape_1000_1296db1"
+            android:gravity="center"
+            android:text="注册"
+            android:textColor="@color/color_1296db"
+            android:textColorHint="@color/color_1296db"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+</LinearLayout>

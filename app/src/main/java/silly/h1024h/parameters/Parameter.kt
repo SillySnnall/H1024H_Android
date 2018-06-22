@@ -47,4 +47,20 @@ object Parameter {
         paramsMap["ac"] = "get_main_url"
         return paramsMap
     }
+
+    fun register(account: String, password: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "register"
+        paramsMap["account"] = account
+        paramsMap["password"] = password
+        return paramsMap
+    }
+
+    fun login(account: String, password: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "login"
+        paramsMap["account"] = account
+        paramsMap["password"] = password
+        return paramsMap
+    }
 }

@@ -17,17 +17,7 @@
             android:padding="5dp" />
     </silly.h1024h.view.RefreshLoadView>
 
-    <RelativeLayout
-        android:id="@+id/loading"
-        android:visibility="gone"
-        android:background="@color/color_262626"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <ProgressBar
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
+    <include layout="@layout/loading_view"/>
 
 </RelativeLayout>
 

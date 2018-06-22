@@ -6,6 +6,7 @@ import silly.h1024h.entity.ImgRes
 interface RecommendContract {
     interface View {
         fun refresh(isLoad: Int)
+        fun fail(isLoad: Int)
     }
 
     interface Presenter {

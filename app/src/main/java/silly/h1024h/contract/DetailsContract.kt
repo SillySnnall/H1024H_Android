@@ -3,6 +3,8 @@ package silly.h1024h.contract
 interface DetailsContract {
     interface View {
         fun refresh(isLoad: Int)
+
+        fun fail(isLoad: Int)
     }
 
     interface Presenter {

@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.loading_view.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import silly.h1024h.R
@@ -23,6 +24,13 @@ import silly.h1024h.persenter.HomePersenter
 import silly.h1024h.view.SillyDialog
 
 class HomeFragment : BaseMvpFragment<HomeContract.Presenter>(), HomeContract.View {
+
+    override fun fail(isLoad: Int) {
+        if (isLoad == 0) refreshloadview.refreshComplete()
+        else refreshloadview.loadComplete()
+        loading.visibility = View.GONE
+    }
+
     override fun showList() {
         moreAdapter.notifyDataSetChanged()
         mPersenter?.getCoverImg(0)

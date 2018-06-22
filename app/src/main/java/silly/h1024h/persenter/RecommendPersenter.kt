@@ -32,10 +32,16 @@ class RecommendPersenter(private val mView: RecommendContract.View) : RecommendC
             resDataList.clear()
         } else pageNum += itemCount
         HttpManager.post(Parameter.getHotImg(pageNum, itemCount), ImgResData::class.java, success = {
+            if(it?.msg != 0){
+                ToastUtil.toast(it?.param!!)
+                mView.fail(isLoad)
+                return@post
+            }
             resDataList.addAll(it?.data!!)
             mView.refresh(isLoad)
         }, fail = {
             ToastUtil.toast(it!!)
+            mView.fail(isLoad)
         })
     }
 }

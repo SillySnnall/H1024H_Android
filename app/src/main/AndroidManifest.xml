@@ -15,8 +15,8 @@
         <activity
             android:name=".activity.StartActivity"
             android:launchMode="singleTask"
-            android:theme="@style/NoTitle_FullScreen"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitle_FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,6 @@
             </intent-filter>
 
         </activity>
-
 
         <activity
             android:name=".activity.MainActivity"
@@ -46,8 +45,14 @@
         <activity
             android:name=".activity.VestWebViewActivity"
             android:launchMode="singleTask"
-            android:theme="@style/NoTitle_FullScreen"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/NoTitle_FullScreen" />
+
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/NoTitle_FullScreen" />
+
     </application>
 
 </manifest>

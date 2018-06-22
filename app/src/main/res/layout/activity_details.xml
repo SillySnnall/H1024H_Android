@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="silly.h1024h.activity.MainActivity">
+    tools:context="silly.h1024h.activity.DetailsActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -52,18 +52,7 @@
                 android:padding="5dp" />
         </silly.h1024h.view.RefreshLoadView>
 
-        <RelativeLayout
-            android:id="@+id/loading"
-            android:layout_width="match_parent"
-            android:background="@color/color_262626"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-
-            <ProgressBar
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_centerInParent="true" />
-        </RelativeLayout>
+        <include layout="@layout/loading_view"/>
 
     </RelativeLayout>
 </LinearLayout>

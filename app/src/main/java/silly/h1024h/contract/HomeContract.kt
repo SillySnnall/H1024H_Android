@@ -8,6 +8,8 @@ interface HomeContract {
         fun refresh(isLoad: Int)
 
         fun showList()
+
+        fun fail(isLoad: Int)
     }
 
     interface Presenter {

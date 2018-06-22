@@ -25,7 +25,12 @@ class DetailsPersenter(private val mView: DetailsContract.View) : DetailsContrac
             Common.imgResList.clear()
         } else pageNum += itemCount
         HttpManager.post(Parameter.getCoverImgDetailed(table, type, pageNum, itemCount), ImgResData::class.java, success = {
-            Common.imgResList.addAll(it?.data!!)
+            if(it?.msg != 0){
+                ToastUtil.toast(it?.param!!)
+                mView.fail(isLoad)
+                return@post
+            }
+            Common.imgResList.addAll(it.data!!)
             EventBus.getDefault().post(EventBusMessage(EventBusConstant.REFRESH_VIEWPAGER))
             mView.refresh(isLoad)
         }, fail = {
