@@ -63,4 +63,13 @@ object Parameter {
         paramsMap["password"] = password
         return paramsMap
     }
+
+
+    fun opinion(account: String, content: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "opinion"
+        paramsMap["account"] = account
+        paramsMap["content"] = content
+        return paramsMap
+    }
 }

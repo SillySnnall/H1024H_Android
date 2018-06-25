@@ -10,8 +10,11 @@ import kotlinx.android.synthetic.main.yes_login.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import silly.h1024h.R
+import silly.h1024h.activity.DetailsActivity
+import silly.h1024h.activity.OpinionActivity
 import silly.h1024h.activity.RegisterActivity
 import silly.h1024h.base.fragment.BaseMvpFragment
+import silly.h1024h.common.IntentName
 import silly.h1024h.common.SpCommon.ACCOUNT
 import silly.h1024h.common.SpCommon.TOKEN
 import silly.h1024h.contract.MeContract
@@ -73,6 +76,16 @@ class MeFragment : BaseMvpFragment<MeContract.Presenter>(), MeContract.View {
 
         loading.setOnClickListener {
             // 拦截点击事件,加载时不可点击
+        }
+        // 退出登录
+        out_login.setOnClickListener {
+            SpUtil.putString(ACCOUNT, "")
+            SpUtil.putString(TOKEN, "")
+            EventBus.getDefault().post(EventBusMessage(EventBusConstant.LOGIN))
+        }
+        // 意见反馈
+        opinion_update.setOnClickListener {
+            startActivity(Intent(context, OpinionActivity::class.java))
         }
     }
 

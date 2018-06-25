@@ -1,16 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/yes_login"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="已登录"
-        android:textSize="60dp"
-        android:textColor="@color/color_1296db" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/collection"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_10_1296db_f"
+                android:gravity="center"
+                android:text="收藏作品"
+                android:textColor="@color/color_bfbfbf"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/share"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_10_bfbfbf_f"
+                android:gravity="center"
+                android:text="分享应用"
+                android:textColor="@color/color_1296db"
+                android:textSize="20dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/bind_email"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_10_bfbfbf_f"
+                android:gravity="center"
+                android:text="绑定邮箱"
+                android:textColor="@color/color_1296db"
+                android:textSize="20dp" />
+
+
+            <TextView
+                android:id="@+id/update_password"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_10_1296db_f"
+                android:gravity="center"
+                android:text="修改密码"
+                android:textColor="@color/color_bfbfbf"
+                android:textSize="20dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/opinion_update"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_10_1296db_f"
+                android:gravity="center"
+                android:text="意见反馈"
+                android:textColor="@color/color_bfbfbf"
+                android:textSize="20dp" />
+
+
+            <TextView
+                android:id="@+id/out_login"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_10_bfbfbf_f"
+                android:gravity="center"
+                android:text="退出登录"
+                android:textColor="@color/color_1296db"
+                android:textSize="20dp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
+

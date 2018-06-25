@@ -1,6 +1,5 @@
 package silly.h1024h.persenter
 
-import silly.h1024h.common.Common
 import silly.h1024h.contract.HomeContract
 import silly.h1024h.entity.*
 import silly.h1024h.http.HttpManager
@@ -35,7 +34,7 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
                         return@post
                     }
                     typeList.clear()
-                    typeList.addAll(it?.data!!)
+                    typeList.addAll(it.data!!)
                     this.table = typeList[0].type
                     mView.showList()
                     onlyOne = true
@@ -82,7 +81,7 @@ class HomePersenter(private val mView: HomeContract.View) : HomeContract.Present
                 mView.fail(isLoad)
                 return@post
             }
-            resDataList.addAll(it?.data!!)
+            resDataList.addAll(it.data!!)
             mView.refresh(isLoad)
         }, fail = {
             ToastUtil.toast(it!!)

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/opinion_root"
+    android:layout_width="match_parent"
+    android:background="@color/color_262626"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_black"
+        android:orientation="horizontal">
+        
+        <ImageView
+            android:id="@+id/pre"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="9dp"
+            android:src="@drawable/pre"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="意见反馈"
+            android:textColor="@color/color_1296db"
+            android:textSize="18dp"
+            tools:ignore="HardcodedText,RelativeOverlap,SpUsage" />
+
+    </RelativeLayout>
+    
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:padding="5dp"
+        android:gravity="left"
+        android:background="@color/color_bfbfbf"
+        android:layout_height="240dp"
+        android:layout_marginTop="20dp"
+        tools:ignore="LabelFor,TextFields" />
+
+    <TextView
+        android:id="@+id/commit"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_1000_1296db1"
+        android:gravity="center"
+        android:text="提交"
+        android:textColor="@color/color_1296db"
+        android:textColorHint="@color/color_1296db"
+        android:textSize="18dp" />
+</LinearLayout>
