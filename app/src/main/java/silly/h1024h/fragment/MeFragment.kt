@@ -87,6 +87,22 @@ class MeFragment : BaseMvpFragment<MeContract.Presenter>(), MeContract.View {
         opinion_update.setOnClickListener {
             startActivity(Intent(context, OpinionActivity::class.java))
         }
+        // 绑定邮箱
+        bind_email.setOnClickListener {
+
+        }
+        // 修改密码
+        update_password.setOnClickListener {
+
+        }
+        // 收藏作品
+        collection.setOnClickListener {
+
+        }
+        // 分享应用
+        share.setOnClickListener {
+
+        }
     }
 
     override fun onDestroyView() {
