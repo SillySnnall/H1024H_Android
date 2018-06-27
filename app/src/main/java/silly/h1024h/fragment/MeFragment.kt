@@ -10,10 +10,7 @@ import kotlinx.android.synthetic.main.yes_login.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import silly.h1024h.R
-import silly.h1024h.activity.BindEmailActivity
-import silly.h1024h.activity.DetailsActivity
-import silly.h1024h.activity.OpinionActivity
-import silly.h1024h.activity.RegisterActivity
+import silly.h1024h.activity.*
 import silly.h1024h.base.fragment.BaseMvpFragment
 import silly.h1024h.common.IntentName
 import silly.h1024h.common.SpCommon.ACCOUNT
@@ -94,7 +91,7 @@ class MeFragment : BaseMvpFragment<MeContract.Presenter>(), MeContract.View {
         }
         // 修改密码
         update_password.setOnClickListener {
-
+            startActivity(Intent(context, ChangePwdActivity::class.java))
         }
         // 收藏作品
         collection.setOnClickListener {

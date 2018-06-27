@@ -62,6 +62,11 @@
             android:name=".activity.BindEmailActivity"
             android:launchMode="singleTask"
             android:theme="@style/NoTitle_FullScreen" />
+
+        <activity
+            android:name=".activity.ChangePwdActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/NoTitle_FullScreen" />
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package silly.h1024h.parameters
 
 
+
 object Parameter {
     fun getCoverImg(table: String, pageNum: Int, itemCount: Int): HashMap<String, String> {
         val paramsMap = HashMap<String, String>()
@@ -94,6 +95,15 @@ object Parameter {
         paramsMap["account"] = account
         paramsMap["email"] = email
         paramsMap["code"] = code
+        return paramsMap
+    }
+
+    fun changePwd(account: String,oldPwd: String, newPwd: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "change_pwd"
+        paramsMap["account"] = account
+        paramsMap["password"] = oldPwd
+        paramsMap["new_password"] = newPwd
         return paramsMap
     }
 }
