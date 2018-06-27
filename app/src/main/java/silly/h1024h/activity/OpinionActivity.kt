@@ -6,7 +6,7 @@ import kotlinx.android.synthetic.main.activity_opinion.*
 import silly.h1024h.R
 import silly.h1024h.base.activity.BaseMvpActivity
 import silly.h1024h.contract.OpinionContract
-import silly.h1024h.persenter.OPinionPersenter
+import silly.h1024h.persenter.OpinionPersenter
 import silly.h1024h.utils.ToastUtil
 
 /**
@@ -18,7 +18,7 @@ class OpinionActivity : BaseMvpActivity<OpinionContract.Presenter>(), OpinionCon
     }
 
     override fun setPersenter(): OpinionContract.Presenter {
-        return OPinionPersenter(this)
+        return OpinionPersenter(this)
     }
 
     override fun setLayoutView(): Int {

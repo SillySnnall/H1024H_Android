@@ -15,7 +15,7 @@ import silly.h1024h.parameters.Parameter
 import silly.h1024h.utils.SpUtil
 import silly.h1024h.utils.ToastUtil
 
-class OPinionPersenter(private val mView: OpinionContract.View) : OpinionContract.Presenter {
+class OpinionPersenter(private val mView: OpinionContract.View) : OpinionContract.Presenter {
     override fun commitOpinion(content: String) {
         HttpManager.post(Parameter.opinion(SpUtil.getString(ACCOUNT)!!, content), BaseResult::class.java, success = {
             if (it?.msg != 0) {

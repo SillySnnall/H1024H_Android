@@ -7,4 +7,5 @@ class UserData : BaseResult<User>()
 
 data class User(var account: String = "",
                 var token: String = "",
+                var email: String = "",
                 var create_time: String = "")

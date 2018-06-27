@@ -6,4 +6,5 @@ package silly.h1024h.common
 object SpCommon {
     const val ACCOUNT = "account"
     const val TOKEN = "token"
+    const val EMAIL = "email"
 }

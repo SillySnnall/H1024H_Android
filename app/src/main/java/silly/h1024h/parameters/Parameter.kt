@@ -72,4 +72,28 @@ object Parameter {
         paramsMap["content"] = content
         return paramsMap
     }
+
+    fun getUser(account: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "get_user"
+        paramsMap["account"] = account
+        return paramsMap
+    }
+
+    fun sendCode(account: String, email: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "send_code"
+        paramsMap["account"] = account
+        paramsMap["email"] = email
+        return paramsMap
+    }
+
+    fun bindEmail(account: String, email: String, code: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "bind_email"
+        paramsMap["account"] = account
+        paramsMap["email"] = email
+        paramsMap["code"] = code
+        return paramsMap
+    }
 }

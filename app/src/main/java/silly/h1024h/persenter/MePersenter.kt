@@ -1,6 +1,8 @@
 package silly.h1024h.persenter
 
+import silly.h1024h.common.SpCommon
 import silly.h1024h.common.SpCommon.ACCOUNT
+import silly.h1024h.common.SpCommon.EMAIL
 import silly.h1024h.common.SpCommon.TOKEN
 import silly.h1024h.contract.MeContract
 import silly.h1024h.entity.UserData
@@ -19,6 +21,7 @@ class MePersenter(private val mView: MeContract.View) : MeContract.Presenter {
             }
             SpUtil.putString(ACCOUNT, it.data?.account!!)
             SpUtil.putString(TOKEN, it.data.token)
+            SpUtil.putString(EMAIL, it.data.email)
             mView.loginSuccess()
         }, fail = {
             ToastUtil.toast(it!!)

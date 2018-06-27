@@ -57,6 +57,11 @@
             android:name=".activity.OpinionActivity"
             android:launchMode="singleTask"
             android:theme="@style/NoTitle_FullScreen" />
+
+        <activity
+            android:name=".activity.BindEmailActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/NoTitle_FullScreen" />
     </application>
 
 </manifest>

@@ -24,4 +24,12 @@ object Util{
     fun isLogin(): Boolean{
         return SpUtil.getString(SpCommon.ACCOUNT)?.isNotEmpty()!! && SpUtil.getString(SpCommon.TOKEN)?.isNotEmpty()!!
     }
+
+    /**
+     * 是否是邮箱
+     */
+    fun isEmail(email: String): Boolean {
+        val pattern = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$"
+        return Pattern.matches(pattern, email)
+    }
 }

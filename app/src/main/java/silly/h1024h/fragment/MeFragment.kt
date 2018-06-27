@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.yes_login.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import silly.h1024h.R
+import silly.h1024h.activity.BindEmailActivity
 import silly.h1024h.activity.DetailsActivity
 import silly.h1024h.activity.OpinionActivity
 import silly.h1024h.activity.RegisterActivity
@@ -89,7 +90,7 @@ class MeFragment : BaseMvpFragment<MeContract.Presenter>(), MeContract.View {
         }
         // 绑定邮箱
         bind_email.setOnClickListener {
-
+            startActivity(Intent(context, BindEmailActivity::class.java))
         }
         // 修改密码
         update_password.setOnClickListener {
