@@ -1,12 +1,18 @@
 package silly.h1024h.http
 
+import android.os.Environment
 import android.util.Log
 import com.google.gson.Gson
 import okhttp3.Call
 import silly.h1024h.http.HttpConfig.URL_SERVICE
 import silly.h1024h.http.httputil.CallBackUtil
+import silly.h1024h.http.httputil.DownloadUtil
 import silly.h1024h.http.httputil.OkhttpUtil
+import silly.h1024h.http.httputil.OkhttpUtil.okHttpDownloadFile
+import silly.h1024h.utils.Init
 import silly.h1024h.utils.LogUtil
+import silly.h1024h.utils.Util
+import java.io.File
 
 object HttpManager {
     private var gson: Gson = Gson()
@@ -46,6 +52,22 @@ object HttpManager {
                     e.printStackTrace()
                     LogUtil.e(e.toString())
                 }
+            }
+        })
+    }
+
+    fun download(url: String, saveDir: String, success: (String?) -> Unit, downloading: (Int?) -> Unit, fail: (String?) -> Unit) {
+        DownloadUtil.get().download(url, saveDir, object : DownloadUtil.OnDownloadListener {
+            override fun onDownloadSuccess(filePath: String?) {
+                success(filePath)
+            }
+
+            override fun onDownloading(progress: Int) {
+                downloading(progress)
+            }
+
+            override fun onDownloadFailed(e: java.lang.Exception?) {
+                fail(e.toString())
             }
         })
     }

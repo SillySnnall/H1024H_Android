@@ -1,6 +1,5 @@
 package silly.h1024h.activity
 
-import android.content.Intent
 import kotlinx.android.synthetic.main.activity_start.*
 import silly.h1024h.R
 import silly.h1024h.base.activity.BaseMvpActivity
@@ -44,23 +43,23 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
 
 
     override fun initData() {
-        mPersenter?.switchURL()
+        mPersenter?.getURL()
     }
 
     private fun jumpMain() {
         loading.text = "初始化完成"
-        when (mPersenter?.getServerType()) {
-            0 -> {
-            }
-            1 -> {
-                startActivity(Intent(this, VestWebViewActivity::class.java))
-                finish()
-            }
-            2 -> {
-                startActivity(Intent(this, MainActivity::class.java))
-                finish()
-            }
-        }
+//        when (mPersenter?.getServerType()) {
+//            0 -> {
+//            }
+//            1 -> {
+//                startActivity(Intent(this, VestWebViewActivity::class.java))
+//                finish()
+//            }
+//            2 -> {
+//                startActivity(Intent(this, MainActivity::class.java))
+//                finish()
+//            }
+//        }
 
     }
 

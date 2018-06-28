@@ -9,8 +9,15 @@ interface StartContract {
     }
 
     interface Presenter {
-        fun switchURL()
+        /**
+         * 获取URL
+         */
+        fun getURL()
 
         fun getServerType(): Int
+        /**
+         * 更新应用
+         */
+        fun updateAPK(downloading: (Int?) -> Unit)
     }
 }

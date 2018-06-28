@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@color/color_black"
     android:id="@+id/start_root"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_black">
 
     <ImageView
         android:layout_width="50dp"
-        android:src="@mipmap/logo"
-        android:layout_centerInParent="true"
         android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/logo"
         tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/loading"
-        android:text="正在初始化......"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:textSize="14dp"
+        android:text="正在初始化......"
         android:textColor="@color/color_1296db"
-        android:layout_height="wrap_content"
+        android:textSize="14dp"
         tools:ignore="HardcodedText,SpUsage" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:progressDrawable="@drawable/progressbar"
+        android:max="100"
+        android:progress="0" />
 
 </RelativeLayout>

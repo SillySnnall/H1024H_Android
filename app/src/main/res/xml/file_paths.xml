@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--7.0存储访问-->
+    <!--Context.getFilesDir()-->
+    <files-path
+        name="."
+        path="files_path" />
+    <!--Environment.getExternalStorageDirectory().-->
+    <external-path
+        name="camera_photos"
+        path="." />
+    <!--getCacheDir()-->
+    <cache-path
+        name="."
+        path="cache_path" />
+</paths>
