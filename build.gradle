@@ -12,6 +12,11 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        // tinkersupport插件, 其中lastest.release指拉取最新版本，也可以指定明确版本号，例如1.0.4
+        classpath "com.tencent.bugly:tinker-support:1.1.2"
+        classpath 'com.tencent.bugly:symtabfileuploader:latest.release'//Bugly符号表插件
+        classpath 'com.meituan.android.walle:plugin:1.1.6'//多渠道打包
     }
 }
 

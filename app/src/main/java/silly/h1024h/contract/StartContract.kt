@@ -6,6 +6,7 @@ package silly.h1024h.contract
 interface StartContract {
     interface View {
         fun initSuccess()
+        fun downloadAPK(url: String)
     }
 
     interface Presenter {
@@ -18,6 +19,6 @@ interface StartContract {
         /**
          * 更新应用
          */
-        fun updateAPK(downloading: (Int?) -> Unit)
+        fun updateAPK(url: String,downloading: (Int?) -> Unit,success: (String?) -> Unit)
     }
 }

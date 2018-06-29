@@ -3,8 +3,12 @@ package silly.h1024h
 import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
-import android.util.Log
+import com.meituan.android.walle.WalleChannelReader
+import com.tencent.bugly.Bugly
+import com.tencent.bugly.beta.Beta
+import com.tencent.bugly.beta.tinker.TinkerManager.getApplication
 import silly.h1024h.utils.Init
+
 
 class App : Application() {
 
@@ -14,6 +18,22 @@ class App : Application() {
         super.onCreate()
         Init.init(this)
         Init.initDb(this)
+
+        val channel = WalleChannelReader.getChannel(this)
+        Bugly.setAppChannel(this, channel)
+        // 这里实现SDK初始化，appId替换成你的在Bugly平台申请的appId
+        // 调试时，将第三个参数改为true
+        Bugly.init(this, "12e38fe984", BuildConfig.DEBUG)
+    }
+
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        // you must install multiDex whatever tinker is installed!
+        MultiDex.install(base)
+
+
+        // 安装tinker
+        Beta.installTinker()
     }
 }
 

@@ -1,14 +1,29 @@
 package silly.h1024h.activity
 
+import android.content.Intent
+import com.meituan.android.walle.WalleChannelReader
+import com.tencent.bugly.beta.tinker.TinkerManager
 import kotlinx.android.synthetic.main.activity_start.*
 import silly.h1024h.R
 import silly.h1024h.base.activity.BaseMvpActivity
 import silly.h1024h.contract.StartContract
 import silly.h1024h.persenter.StartPersenter
+import silly.h1024h.utils.LogUtil
+import silly.h1024h.utils.ToastUtil
+import silly.h1024h.utils.Util.installAPK
 import java.util.*
 
 
 class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.View {
+    override fun downloadAPK(url: String) {
+        loading.text = "正在更新......"
+        mPersenter?.updateAPK(url, downloading = {
+            progress.progress = it!!
+        }, success = {
+            installAPK(it!!)
+        })
+    }
+
     override fun initEvent() {
 
     }
@@ -48,19 +63,11 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
 
     private fun jumpMain() {
         loading.text = "初始化完成"
-//        when (mPersenter?.getServerType()) {
-//            0 -> {
-//            }
-//            1 -> {
-//                startActivity(Intent(this, VestWebViewActivity::class.java))
-//                finish()
-//            }
-//            2 -> {
-//                startActivity(Intent(this, MainActivity::class.java))
-//                finish()
-//            }
-//        }
-
+        when (mPersenter?.getServerType()) {
+            1 -> startActivity(Intent(this, VestWebViewActivity::class.java))
+            2 -> startActivity(Intent(this, MainActivity::class.java))
+        }
+        finish()
     }
 
     override fun onDestroy() {

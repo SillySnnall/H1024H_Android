@@ -1,7 +1,8 @@
 package silly.h1024h.persenter
 
-import silly.h1024h.base.entity.BaseResult
+import com.meituan.android.walle.WalleChannelReader
 import silly.h1024h.contract.StartContract
+import silly.h1024h.entity.MainUrlData
 import silly.h1024h.http.HttpManager
 import silly.h1024h.parameters.Parameter
 import silly.h1024h.utils.Init
@@ -9,14 +10,17 @@ import silly.h1024h.utils.ToastUtil
 import silly.h1024h.utils.Util
 
 class StartPersenter(private val mView: StartContract.View) : StartContract.Presenter {
-    override fun updateAPK(downloading: (Int?) -> Unit) {
-        HttpManager.download("https://d.qiezzi.com/qiezi-clinic.apk",
-                Init.ctx.getExternalFilesDir("apk").absolutePath,
-                success = {},
+    override fun updateAPK(url: String, downloading: (Int?) -> Unit, success: (String?) -> Unit) {
+        HttpManager.download(url, Init.ctx.getExternalFilesDir("apk").absolutePath,
+                success = {
+                    success(it!!)
+                },
                 downloading = {
                     downloading(it!!)
                 },
-                fail = {})
+                fail = {
+                    updateAPK(url, downloading, success)
+                })
     }
 
     override fun getServerType(): Int {
@@ -32,15 +36,22 @@ class StartPersenter(private val mView: StartContract.View) : StartContract.Pres
 
 
     override fun getURL() {
-        HttpManager.post(Parameter.getMianUrl(Util.getVersionCode().toString(),""), BaseResult::class.java, success = {
-            if (it?.msg != 0) return@post
-            serverType = it.data.toString().toInt()
+        HttpManager.post(Parameter.getMianUrl(Util.getVersionCode().toString(), WalleChannelReader.getChannel(Init.ctx)
+                ?: "app"), MainUrlData::class.java, success = {
+            if (it?.msg != 0) {
+                ToastUtil.toast(it?.param!!)
+                getURL()
+                return@post
+            }
+            if (it.data?.apk_url?.isNotEmpty()!!) {
+                mView.downloadAPK(it.data.apk_url)
+                return@post
+            }
+            serverType = it.data.type
             mView.initSuccess()
         }, fail = {
             ToastUtil.toast(it!!)
-            mView.initSuccess()
+            getURL()
         })
     }
-
-
 }
