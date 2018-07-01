@@ -20,6 +20,7 @@ import silly.h1024h.eventbus.EventBusConstant
 import silly.h1024h.eventbus.EventBusMessage
 import silly.h1024h.persenter.MePersenter
 import silly.h1024h.utils.SpUtil
+import silly.h1024h.utils.ToastUtil
 import silly.h1024h.utils.ToastUtil.toast
 import silly.h1024h.utils.Util.isLogin
 
@@ -95,11 +96,11 @@ class MeFragment : BaseMvpFragment<MeContract.Presenter>(), MeContract.View {
         }
         // 收藏作品
         collection.setOnClickListener {
-
+            ToastUtil.toast("敬请期待")
         }
         // 分享应用
         share.setOnClickListener {
-
+            ToastUtil.toast("敬请期待")
         }
     }
 
