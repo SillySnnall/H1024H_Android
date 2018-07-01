@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import co.bxvip.android.commonlib.http.intercepter.CacheInterceptor;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -23,9 +22,10 @@ import okio.ForwardingSink;
 import okio.Okio;
 import okio.Sink;
 import silly.h1024h.http.intercepter.LogInterceptor;
-import silly.h1024h.http.intercepter.RetryIntercepter;
+import silly.h1024h.utils.DesUtil;
 
 /**
+ * 请求工具类
  * Created by fighting on 2017/4/7.
  */
 
@@ -87,9 +87,7 @@ class RequestUtil {
      */
     private void getInstance() {
         mOkHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new RetryIntercepter(2))//重试
                 .addInterceptor(new LogInterceptor())// 请求打印
-                .addInterceptor(new CacheInterceptor())
                 .build();
         mRequestBuilder = new Request.Builder();
         if (mFile != null || mfileList != null || mfileMap != null) {//先判断是否有文件，
@@ -120,7 +118,7 @@ class RequestUtil {
     }
 
     /**
-     * 得到body对象
+     * 得到加密body对象
      */
     private RequestBody getRequestBody() {
         /**
@@ -134,14 +132,51 @@ class RequestUtil {
         /**
          * post,put,delete都需要body，但也都有body等于空的情况，此时也应该有body对象，但body中的内容为空
          */
+        StringBuilder sb = new StringBuilder();
         FormBody.Builder formBody = new FormBody.Builder();
-        if (mParamsMap != null) {
+        if (mParamsMap != null && mParamsMap.size() != 0) {
             for (String key : mParamsMap.keySet()) {
-                formBody.add(key, mParamsMap.get(key));
+                sb.append(key).append("=").append(mParamsMap.get(key)).append(",");
             }
+            sb.deleteCharAt(sb.length() - 1);
+            //密匙加密
+            String encryptData = "";
+            String nowTime = Long.toString(System.currentTimeMillis() / 1000);
+            try {
+                encryptData = DesUtil.encrypt(sb.toString(), nowTime);// 时间加密
+                encryptData = DesUtil.encrypt(encryptData);// key加密
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            formBody.add("sign", encryptData);
+            formBody.add("timestamp", nowTime);
         }
         return formBody.build();
     }
+
+//    /**
+//     * 得到未加密body对象
+//     */
+//    private RequestBody getRequestBody() {
+//        /**
+//         * 首先判断mJsonStr是否为空，由于mJsonStr与mParamsMap不可能同时存在，所以先判断mJsonStr
+//         */
+//        if (!TextUtils.isEmpty(mJsonStr)) {
+//            MediaType JSON = MediaType.parse("application/json; charset=utf-8");//数据类型为json格式，
+//            return RequestBody.create(JSON, mJsonStr);//json数据，
+//        }
+//
+//        /**
+//         * post,put,delete都需要body，但也都有body等于空的情况，此时也应该有body对象，但body中的内容为空
+//         */
+//        FormBody.Builder formBody = new FormBody.Builder();
+//        if (mParamsMap != null) {
+//            for (String key : mParamsMap.keySet()) {
+//                formBody.add(key, mParamsMap.get(key));
+//            }
+//        }
+//        return formBody.build();
+//    }
 
 
     /**

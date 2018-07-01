@@ -18,7 +18,7 @@ class CacheInterceptor : Interceptor {
                     ?.cacheControl(CacheControl.FORCE_CACHE)
                     ?.build()
         }
-        val response = chain?.proceed(request)
+        val response = chain?.proceed(request!!)
         if (NetworkUtil.isNetworkAvailable(Init.ctx)) {
             val maxAge = 0
             // 有网络时 设置缓存超时时间0个小时 ,意思就是不读取缓存数据,只对get有用,post没有缓冲

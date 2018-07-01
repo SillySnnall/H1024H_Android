@@ -20,6 +20,8 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
+import silly.h1024h.BuildConfig;
+
 
 /**
  * SillyDialog
@@ -129,7 +131,6 @@ public class SillyDialog extends AlertDialog {
         if (id > 0) {
             navigationBarHeight = rs.getDimensionPixelSize(id);
         }
-        Log.i(TAG, "getNavigationBarHeight: " + navigationBarHeight);
         return navigationBarHeight;
     }
 
@@ -182,7 +183,7 @@ public class SillyDialog extends AlertDialog {
                 });
             }
         } catch (Exception e) {
-            Log.e(TAG, "跟布局缺少ID,请在布局文件中给根布局加上ID");
+            if (BuildConfig.DEBUG) Log.e(TAG, "跟布局缺少ID,请在布局文件中给根布局加上ID");
         }
         return this;
     }
@@ -259,7 +260,7 @@ public class SillyDialog extends AlertDialog {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("SillyDialog", e.toString());
+            if (BuildConfig.DEBUG) Log.e("SillyDialog", e.toString());
         }
     }
 

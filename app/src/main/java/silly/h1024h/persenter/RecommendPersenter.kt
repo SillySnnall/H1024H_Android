@@ -37,7 +37,7 @@ class RecommendPersenter(private val mView: RecommendContract.View) : RecommendC
                 mView.fail(isLoad)
                 return@post
             }
-            resDataList.addAll(it?.data!!)
+            resDataList.addAll(it.data!!)
             mView.refresh(isLoad)
         }, fail = {
             ToastUtil.toast(it!!)

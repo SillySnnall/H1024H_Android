@@ -47,7 +47,7 @@ public class LogInterceptor implements Interceptor {
             }
         }
         if (BuildConfig.DEBUG) Log.d(TAG, "| Response:" + content);
-        Log.d(TAG, "----------End:" + duration + "毫秒----------");
+        if (BuildConfig.DEBUG) Log.d(TAG, "----------End:" + duration + "毫秒----------");
         return response.newBuilder()
                 .body(okhttp3.ResponseBody.create(mediaType, content))
                 .build();

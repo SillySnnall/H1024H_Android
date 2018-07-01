@@ -1,15 +1,15 @@
 package silly.h1024h.activity
 
 import android.content.Intent
-import com.meituan.android.walle.WalleChannelReader
-import com.tencent.bugly.beta.tinker.TinkerManager
+import com.silly.sillypermission.SillyPermission
+import com.silly.sillypermission.SillyPermission.PERMISSION_PHONE
+import com.silly.sillypermission.SillyPermission.PERMISSION_STORAGE
+import com.silly.sillypermission.SillyPermissionCall
 import kotlinx.android.synthetic.main.activity_start.*
 import silly.h1024h.R
 import silly.h1024h.base.activity.BaseMvpActivity
 import silly.h1024h.contract.StartContract
 import silly.h1024h.persenter.StartPersenter
-import silly.h1024h.utils.LogUtil
-import silly.h1024h.utils.ToastUtil
 import silly.h1024h.utils.Util.installAPK
 import java.util.*
 
@@ -24,9 +24,7 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
         })
     }
 
-    override fun initEvent() {
-
-    }
+    override fun initEvent() {}
 
     override fun initSuccess() {
         initSuccess = true
@@ -46,19 +44,24 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
     }
 
     override fun initView() {
-        timer?.schedule(object : TimerTask() {
-            override fun run() {
-                runOnUiThread({
-                    isJump = true
-                    if (initSuccess) jumpMain()
-                })
-            }
-        }, 2000)
+
     }
 
 
     override fun initData() {
-        mPersenter?.getURL()
+        // 申请多个权限
+        SillyPermission.requestPermission(this, SillyPermissionCall {
+            if (!it) return@SillyPermissionCall
+            timer?.schedule(object : TimerTask() {
+                override fun run() {
+                    runOnUiThread({
+                        isJump = true
+                        if (initSuccess) jumpMain()
+                    })
+                }
+            }, 2000)
+            mPersenter?.getURL()
+        }, PERMISSION_PHONE, PERMISSION_STORAGE)
     }
 
     private fun jumpMain() {
@@ -76,4 +79,17 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
         // 一定设置为null，否则定时器不会被回收
         timer = null
     }
+
+    // 必须在Activity中重写 onActivityResult 做回调
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        SillyPermission.onActivityResultPermission(this, requestCode)
+    }
+
+    // 必须在Activity中重写 onRequestPermissionsResult 做回调
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        SillyPermission.onRequestPermissionsResultPermission(this, requestCode, permissions, grantResults)
+    }
+
 }

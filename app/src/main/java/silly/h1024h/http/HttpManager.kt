@@ -9,6 +9,7 @@ import silly.h1024h.http.httputil.CallBackUtil
 import silly.h1024h.http.httputil.DownloadUtil
 import silly.h1024h.http.httputil.OkhttpUtil
 import silly.h1024h.http.httputil.OkhttpUtil.okHttpDownloadFile
+import silly.h1024h.utils.DesUtil
 import silly.h1024h.utils.Init
 import silly.h1024h.utils.LogUtil
 import silly.h1024h.utils.Util
@@ -28,8 +29,9 @@ object HttpManager {
 
             override fun onResponse(response: String) {
                 try {
-                    if (classOfT.name == "java.lang.String") success(response as T)
-                    else success(gson.fromJson(response, classOfT))
+                    val decrypt = DesUtil.decrypt(response)
+                    if (classOfT.name == "java.lang.String") success(decrypt as T)
+                    else success(gson.fromJson(decrypt, classOfT))
                 } catch (e: Exception) {
                     e.printStackTrace()
                     LogUtil.e(e.toString())

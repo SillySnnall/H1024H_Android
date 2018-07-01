@@ -2,6 +2,7 @@ package silly.h1024h.activity
 
 import android.annotation.SuppressLint
 import android.view.View
+import com.tencent.bugly.crashreport.CrashReport
 import silly.h1024h.R
 import kotlinx.android.synthetic.main.layout_bottom.*
 import kotlinx.android.synthetic.main.layout_top.*
