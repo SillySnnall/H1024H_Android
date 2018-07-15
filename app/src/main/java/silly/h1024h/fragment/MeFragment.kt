@@ -72,7 +72,10 @@ class MeFragment : BaseMvpFragment<MeContract.Presenter>(), MeContract.View {
             loading.visibility = View.VISIBLE
             mPersenter?.login(account.text.trim().toString(), password.text.trim().toString())
         }
-
+        // 忘记密码
+        find_password.setOnClickListener {
+            startActivity(Intent(context, FindPwdActivity::class.java))
+        }
         loading.setOnClickListener {
             // 拦截点击事件,加载时不可点击
         }

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/color_black"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/pre"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="9dp"
+            android:src="@drawable/pre"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="找回密码"
+            android:textColor="@color/color_1296db"
+            android:textSize="18dp"
+            tools:ignore="HardcodedText,RelativeOverlap,SpUsage" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/account"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_5_1296db"
+        android:gravity="center"
+        android:hint="帐号"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/color_1296db"
+        android:textColorHint="@color/color_441296db"
+        android:textSize="18dp" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_5_1296db"
+        android:gravity="center"
+        android:hint="邮箱"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/color_1296db"
+        android:textColorHint="@color/color_441296db"
+        android:textSize="18dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_5_1296db"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/code"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="验证码"
+            android:inputType="number"
+            android:maxLength="6"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/color_1296db"
+            android:textColorHint="@color/color_441296db"
+            android:textSize="18dp" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@color/color_1296db" />
+
+        <TextView
+            android:id="@+id/send_code"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="获取"
+            android:textColor="@color/color_1296db"
+            android:textSize="18dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/new_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/shape_5_1296db"
+        android:gravity="center"
+        android:hint="新密码"
+        android:inputType="textPassword"
+        android:maxLength="16"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/color_1296db"
+        android:textColorHint="@color/color_441296db"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/commit"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/shape_1000_1296db1"
+        android:gravity="center"
+        android:text="找回"
+        android:textColor="@color/color_1296db"
+        android:textSize="18dp" />
+
+
+</LinearLayout>

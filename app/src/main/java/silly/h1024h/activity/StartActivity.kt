@@ -9,6 +9,9 @@ import kotlinx.android.synthetic.main.activity_start.*
 import silly.h1024h.R
 import silly.h1024h.base.activity.BaseMvpActivity
 import silly.h1024h.contract.StartContract
+import silly.h1024h.http.HttpConfig.URL_MAIN
+import silly.h1024h.http.HttpConfig.URL_SERVICE
+import silly.h1024h.http.HttpConfig.URL_VEST
 import silly.h1024h.persenter.StartPersenter
 import silly.h1024h.utils.Util.installAPK
 import java.util.*
@@ -66,10 +69,15 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
 
     private fun jumpMain() {
         loading.text = "初始化完成"
+//        when (mPersenter?.getServerType()) {
+//            1 -> startActivity(Intent(this, VestWebViewActivity::class.java))
+//            2 -> startActivity(Intent(this, MainActivity::class.java))
+//        }
         when (mPersenter?.getServerType()) {
-            1 -> startActivity(Intent(this, VestWebViewActivity::class.java))
-            2 -> startActivity(Intent(this, MainActivity::class.java))
+            1 -> URL_SERVICE = URL_VEST
+            2 -> URL_SERVICE = URL_MAIN
         }
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 

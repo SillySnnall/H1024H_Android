@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="silly.h1024h">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,7 +27,7 @@
 
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
-            android:theme="@android:style/Theme.Translucent"/>
+            android:theme="@android:style/Theme.Translucent" />
 
         <activity
             android:name=".activity.StartActivity"
@@ -63,28 +62,32 @@
         <activity
             android:name=".activity.VestWebViewActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoTitle_FullScreen" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.RegisterActivity"
             android:launchMode="singleTask"
-            android:theme="@style/NoTitle_FullScreen" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.OpinionActivity"
             android:launchMode="singleTask"
-            android:theme="@style/NoTitle_FullScreen" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.BindEmailActivity"
             android:launchMode="singleTask"
-            android:theme="@style/NoTitle_FullScreen" />
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".activity.ChangePwdActivity"
             android:launchMode="singleTask"
-            android:theme="@style/NoTitle_FullScreen" />
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.FindPwdActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

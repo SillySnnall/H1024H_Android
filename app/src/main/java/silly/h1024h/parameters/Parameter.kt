@@ -107,4 +107,22 @@ object Parameter {
         paramsMap["new_password"] = newPwd
         return paramsMap
     }
+
+    fun getCode(account: String, email: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "get_code"
+        paramsMap["account"] = account
+        paramsMap["email"] = email
+        return paramsMap
+    }
+
+    fun findPwd(account: String, email: String, code: String, newPwd: String): HashMap<String, String> {
+        val paramsMap = HashMap<String, String>()
+        paramsMap["ac"] = "find_pwd"
+        paramsMap["account"] = account
+        paramsMap["email"] = email
+        paramsMap["code"] = code
+        paramsMap["new_password"] = newPwd
+        return paramsMap
+    }
 }
