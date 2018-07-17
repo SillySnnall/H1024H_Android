@@ -1,6 +1,7 @@
 package silly.h1024h.adapter
 
 import android.net.Uri
+import android.view.View
 import com.bumptech.glide.Glide
 import silly.h1024h.R
 import silly.h1024h.entity.ImgRes
@@ -11,7 +12,10 @@ import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
 import silly.h1024h.R.id.loading
 import silly.h1024h.base.adapter.BaseRecyclerViewAdapter
 import silly.h1024h.base.adapter.RecyclerViewHolder
+import silly.h1024h.common.Common
 import silly.h1024h.http.HttpConfig
+import silly.h1024h.http.HttpManager
+import silly.h1024h.http.httputil.ImageloadUtil
 import silly.h1024h.utils.Init
 
 

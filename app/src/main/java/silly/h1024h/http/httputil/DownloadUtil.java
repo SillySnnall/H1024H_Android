@@ -1,5 +1,7 @@
 package silly.h1024h.http.httputil;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import java.io.File;
@@ -14,7 +16,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class DownloadUtil {
-
+    public static Handler mMainHandler = new Handler(Looper.getMainLooper());
     private static DownloadUtil downloadUtil;
     private final OkHttpClient okHttpClient;
 
@@ -34,18 +36,23 @@ public class DownloadUtil {
      * @param saveDir  储存下载文件的SDCard目录
      * @param listener 下载监听
      */
-    public void download(final String url, final String saveDir, final OnDownloadListener listener) {
+    public void download(final String url, final String saveDir, final String fileName, final OnDownloadListener listener) {
         Request request = new Request.Builder().url(url).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(final Call call, final IOException e) {
                 e.printStackTrace();
                 // 下载失败
-                if (listener != null) listener.onDownloadFailed(e);
+                mMainHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (listener != null) listener.onDownloadFailed(call, e);
+                    }
+                });
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(final Call call, Response response) throws IOException {
                 InputStream is = null;
                 byte[] buf = new byte[2048];
                 int len = 0;
@@ -55,36 +62,67 @@ public class DownloadUtil {
                 try {
                     is = response.body().byteStream();
                     long total = response.body().contentLength();
-                    File file = new File(savePath, getNameFromUrl(url));
+                    final File file;
+                    if (fileName.isEmpty()) {
+                        file = new File(savePath, getNameFromUrl(url));
+                    } else {
+                        file = new File(savePath, fileName);
+                    }
                     fos = new FileOutputStream(file);
                     long sum = 0;
                     while ((len = is.read(buf)) != -1) {
                         fos.write(buf, 0, len);
                         sum += len;
-                        int progress = (int) (sum * 1.0f / total * 100);
+                        final int progress = (int) (sum * 1.0f / total * 100);
                         // 下载中
-                        if (listener != null) listener.onDownloading(progress);
+                        mMainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) listener.onDownloading(progress);
+                            }
+                        });
                     }
                     fos.flush();
                     // 下载完成
-                    if (listener != null) listener.onDownloadSuccess(file.getAbsolutePath());
-                } catch (Exception e) {
+                    mMainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (listener != null)
+                                listener.onDownloadSuccess(file.getAbsolutePath());
+                        }
+                    });
+                } catch (final Exception e) {
                     e.printStackTrace();
-                    if (listener != null) listener.onDownloadFailed(e);
+                    mMainHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (listener != null) listener.onDownloadFailed(call, e);
+                        }
+                    });
                 } finally {
                     try {
                         if (is != null)
                             is.close();
-                    } catch (IOException ignored) {
+                    } catch (final IOException ignored) {
                         ignored.printStackTrace();
-                        if (listener != null) listener.onDownloadFailed(ignored);
+                        mMainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) listener.onDownloadFailed(call, ignored);
+                            }
+                        });
                     }
                     try {
                         if (fos != null)
                             fos.close();
-                    } catch (IOException ignored) {
+                    } catch (final IOException ignored) {
                         ignored.printStackTrace();
-                        if (listener != null) listener.onDownloadFailed(ignored);
+                        mMainHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (listener != null) listener.onDownloadFailed(call, ignored);
+                            }
+                        });
                     }
                 }
             }
@@ -128,6 +166,6 @@ public class DownloadUtil {
         /**
          * 下载失败
          */
-        void onDownloadFailed(Exception e);
+        void onDownloadFailed(Call call, Exception e);
     }
 }

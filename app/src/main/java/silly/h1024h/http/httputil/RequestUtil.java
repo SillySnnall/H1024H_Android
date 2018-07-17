@@ -21,6 +21,7 @@ import okio.BufferedSink;
 import okio.ForwardingSink;
 import okio.Okio;
 import okio.Sink;
+import silly.h1024h.BuildConfig;
 import silly.h1024h.http.intercepter.LogInterceptor;
 import silly.h1024h.utils.DesUtil;
 
@@ -86,9 +87,14 @@ class RequestUtil {
      * 创建OKhttpClient实例。
      */
     private void getInstance() {
-        mOkHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(new LogInterceptor())// 请求打印
-                .build();
+        if (BuildConfig.DEBUG) {
+            mOkHttpClient = new OkHttpClient.Builder()
+                    .addInterceptor(new LogInterceptor())// 请求打印
+                    .build();
+        } else {
+            mOkHttpClient = new OkHttpClient.Builder()
+                    .build();
+        }
         mRequestBuilder = new Request.Builder();
         if (mFile != null || mfileList != null || mfileMap != null) {//先判断是否有文件，
             setFile();

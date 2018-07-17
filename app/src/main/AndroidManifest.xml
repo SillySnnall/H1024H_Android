@@ -60,11 +60,6 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.VestWebViewActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name=".activity.RegisterActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />

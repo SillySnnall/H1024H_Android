@@ -1,6 +1,5 @@
 package silly.h1024h.fragment
 
-import android.media.Image
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,10 +12,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.GlideDrawable
 import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
-import kotlinx.android.synthetic.main.fragment_image.*
 import silly.h1024h.R
 import silly.h1024h.common.Common
-import silly.h1024h.http.HttpConfig
 
 class ImageFragment : Fragment() {
     private var mPosition: Int = 0

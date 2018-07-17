@@ -69,10 +69,6 @@ class StartActivity : BaseMvpActivity<StartContract.Presenter>(), StartContract.
 
     private fun jumpMain() {
         loading.text = "初始化完成"
-//        when (mPersenter?.getServerType()) {
-//            1 -> startActivity(Intent(this, VestWebViewActivity::class.java))
-//            2 -> startActivity(Intent(this, MainActivity::class.java))
-//        }
         when (mPersenter?.getServerType()) {
             1 -> URL_SERVICE = URL_VEST
             2 -> URL_SERVICE = URL_MAIN

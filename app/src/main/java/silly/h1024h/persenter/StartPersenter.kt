@@ -33,10 +33,8 @@ class StartPersenter(private val mView: StartContract.View) : StartContract.Pres
      * 2 ->正式服务器
      */
     private var serverType = 0
-    private var requestCount = 3
 
     override fun getURL() {
-        if (requestCount-- <= 0) return
         HttpManager.post(Parameter.getMianUrl(Util.getVersionCode().toString(), WalleChannelReader.getChannel(Init.ctx)
                 ?: "app"), MainUrlData::class.java, success = {
             if (it?.msg != 0) {
